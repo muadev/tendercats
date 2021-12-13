@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
-import { Text, TextInput, View } from 'react-native'
+import { Text, View } from 'react-native'
+import database from '@react-native-firebase/database'
 
 function App() {
-  const [gato, setGato] = useState("Estado de un gato")
+  const [gato, setGato] = useState('Estado de un gato')
+
+  database().ref('/gatxs/gato11').on('value', snapshot => {
+    setGato(snapshot.val())
+  })
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>
         { gato }
       </Text>
-      <TextInput
-        style={{height: 40}}
-        placeholder="Escribí acá para cambiar el estado del gato"
-        onChangeText={text => setGato(text)}
-      />
     </View>
   )
 }
