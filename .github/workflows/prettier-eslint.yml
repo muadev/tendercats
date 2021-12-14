@@ -3,9 +3,20 @@ on: push
 jobs:
   styling-code:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.13.1]
+
     steps:
       - name: run-prettier
+        with:
+          node-version: ${{ matrix.node-version }}
+          path: 'node_modules'
         run: npm run make-pretty
       - name: run-eslint
+        with:
+          node-version: ${{ matrix.node-version }}
+          path: 'node_modules'
         run: npm run lint
         
