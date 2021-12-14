@@ -10,11 +10,13 @@ jobs:
 
     steps:
       - name: run-prettier
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
           path: 'node_modules'
         run: npm run make-pretty
       - name: run-eslint
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
           path: 'node_modules'
