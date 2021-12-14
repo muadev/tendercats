@@ -1,24 +1,29 @@
-name: hello-world
+name: formating-code
+
 on: push
+
 jobs:
   styling-code:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [16.13.1]
+        node-version: [16.x]
 
     steps:
-      - name: run-prettier
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v2
+      
+      - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-          path: 'node_modules'
-        run: npm run make-pretty
-      - name: run-eslint
-        uses: actions/setup-node@v2
+
+      - name: Prettier
         with:
-          node-version: ${{ matrix.node-version }}
           path: 'node_modules'
-        run: npm run lint
+        run: npx --no-install prettier --write 'src/*.js'
+      
+      - name: Eslint
+        with:
+          path: 'node_modules'
+        run: npx --no-install eslint .
         
