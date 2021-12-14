@@ -27,4 +27,4 @@ jobs:
       - name: Eslint
         uses: stefanoeb/eslint-action@1.0.2
         with:
-          files: src/ --max-warnings 0
+          files: --quiet src/
