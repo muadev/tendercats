@@ -1,10 +1,14 @@
 name: formating-code
 
-on: push
+on:
+  pull_request:
+   branches:
+    - main
 
 jobs:
-  styling-code:
-    runs-on: ubuntu-latest
+  checking-code:
+      name: Verificando el codigo
+      runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -17,13 +21,16 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Instalando paquetes
+        run: npm ci
+      
       - name: Prettier
         with:
           path: 'node_modules'
-        run: npx --no-install prettier --write 'src/*.js'
+        run: npm run make-pretty
       
       - name: Eslint
         with:
           path: 'node_modules'
-        run: npx --no-install eslint .
+        run: npm run lint
         
