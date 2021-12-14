@@ -1,0 +1,11 @@
+name: hello-world
+on: push
+jobs:
+  styling-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: run-prettier
+        run: npm run make-pretty
+      - name: run-eslint
+        run: npm run lint
+        
