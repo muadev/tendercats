@@ -15,7 +15,7 @@ import {
   StyleSheet,
   Text,
   useColorScheme,
-  View
+  View,
 } from 'react-native'
 
 import {
@@ -23,7 +23,7 @@ import {
   DebugInstructions,
   Header,
   LearnMoreLinks,
-  ReloadInstructions
+  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen'
 
 const Section = ({ children, title }): Node => {
