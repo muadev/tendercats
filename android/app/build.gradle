@@ -1,4 +1,6 @@
 apply plugin: "com.android.application"
+// Es necesario para el funcionamiento de firebase.
+apply plugin: 'com.google.gms.google-services'
 
 import com.android.build.OutputFile
 

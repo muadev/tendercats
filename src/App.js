@@ -6,8 +6,9 @@
  * @flow strict-local
  */
 
-import React from 'react'
+import React, { useState } from 'react'
 import type { Node } from 'react'
+import database from '@react-native-firebase/database'
 import {
   SafeAreaView,
   ScrollView,
@@ -28,6 +29,7 @@ import {
 
 const Section = ({ children, title }): Node => {
   const isDarkMode = useColorScheme() === 'dark'
+
   return (
     <View style={styles.sectionContainer}>
       <Text
@@ -53,11 +55,17 @@ const Section = ({ children, title }): Node => {
 }
 
 const App: () => Node = () => {
+  const [gato, setGato] = useState('Estado de un gato')
+
   const isDarkMode = useColorScheme() === 'dark'
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter
   }
+
+  database().ref('/gatxs/gato11').on('value', snapshot => {
+    setGato(snapshot.val())
+  })
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -73,6 +81,9 @@ const App: () => Node = () => {
           <Section title="TenderCats">
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.
+          </Section>
+          <Section title="Prueba de conexión a DB">
+            <Text style={styles.highlight}>{ gato }</Text>
           </Section>
           <Section title="See Your Changes">
             <ReloadInstructions />
