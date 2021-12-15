@@ -1,6 +1,8 @@
 package com.tendercats;
 
 import com.facebook.react.ReactActivity;
+// Necesario para react-native-screens.
+import android.os.Bundle;
 
 public class MainActivity extends ReactActivity {
 
@@ -11,5 +13,14 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "TenderCats";
+  }
+
+  /**
+   * Necesario para react-native-screens.
+   * Ver más en: https://reactnavigation.org/docs/getting-started/#installing-dependencies-into-a-bare-react-native-project
+   */
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(null);
   }
 }
