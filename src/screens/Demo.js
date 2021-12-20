@@ -8,7 +8,6 @@
 
 import React, { useState, useContext } from 'react'
 import type { Node } from 'react'
-import database from '@react-native-firebase/database'
 import {
   SafeAreaView,
   ScrollView,
@@ -27,6 +26,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen'
 
 import { ThemeContext } from '../context/Theme'
+import { getGatite } from '../context/Database'
 
 const Section = ({ children, title }): Node => {
   const isDarkMode = useContext(ThemeContext) === 'dark'
@@ -64,7 +64,7 @@ const App: () => Node = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter
   }
 
-  database().ref('/gatxs/gato11').on('value', snapshot => {
+  getGatite('1').on('value', snapshot => {
     setGato(snapshot.val())
   })
 
