@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import type { Node } from 'react'
 import database from '@react-native-firebase/database'
 import {
@@ -15,7 +15,6 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View
 } from 'react-native'
 
@@ -27,8 +26,10 @@ import {
   ReloadInstructions
 } from 'react-native/Libraries/NewAppScreen'
 
+import { ThemeContext } from '../context/Theme'
+
 const Section = ({ children, title }): Node => {
-  const isDarkMode = useColorScheme() === 'dark'
+  const isDarkMode = useContext(ThemeContext) === 'dark'
 
   return (
     <View style={styles.sectionContainer}>
@@ -57,7 +58,7 @@ const Section = ({ children, title }): Node => {
 const App: () => Node = () => {
   const [gato, setGato] = useState('Estado de un gato')
 
-  const isDarkMode = useColorScheme() === 'dark'
+  const isDarkMode = useContext(ThemeContext) === 'dark'
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter
