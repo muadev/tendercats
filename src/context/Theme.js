@@ -1,9 +1,11 @@
-/* Contexto para proveer el tema preferido al resto de la app. Actualmente sólo
- * pasa el `colorScheme` (light o dark) pero en un futuro puede pasar todo el
- * StyleSheet.
- */
+// Contexto para proveer el tema preferido al resto de la app. Actualmente sólo
+// pasa el `colorScheme` (light o dark) pero en un futuro puede pasar todo el
+// StyleSheet.
 import React, { createContext } from 'react'
 import { Appearance } from 'react-native'
+import { Provider as PaperProvider } from 'react-native-paper'
+
+import { Light, Dark } from '../themes'
 
 // Exportamos el contexto en sí, para usar con `useContext` y pedir
 // el valor.
@@ -19,8 +21,10 @@ export const ThemeProvider = ({ children }) => {
   const colorScheme = Appearance.getColorScheme() || 'light'
 
   return (
-    <ThemeContext.Provider value={colorScheme}>
-      {children}
+    <ThemeContext.Provider value={ colorScheme }>
+      <PaperProvider theme={ colorScheme === 'dark' ? Dark : Light }>
+        { children }
+      </PaperProvider>
     </ThemeContext.Provider>
   )
 }

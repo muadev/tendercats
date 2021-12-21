@@ -1,6 +1,5 @@
-/* Contexto para proveer acceso a la base de datos. Nos permite aislarnos un
- * poquito de la inicialización y configuración de firebase.
- */
+// Contexto para proveer acceso a la base de datos. Nos permite aislarnos un
+// poquito de la inicialización y configuración de firebase.
 import React, { createContext, useContext } from 'react'
 import database from '@react-native-firebase/database'
 

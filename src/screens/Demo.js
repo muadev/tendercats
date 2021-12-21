@@ -13,7 +13,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View
 } from 'react-native'
 
@@ -25,6 +24,8 @@ import {
   ReloadInstructions
 } from 'react-native/Libraries/NewAppScreen'
 
+import { Text } from 'react-native-paper'
+
 import { ThemeContext } from '../context/Theme'
 import { getGatite } from '../context/Database'
 
@@ -33,22 +34,10 @@ const Section = ({ children, title }): Node => {
 
   return (
     <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black
-          }
-        ]}>
+      <Text style={ [styles.sectionTitle] }>
         {title}
       </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark
-          }
-        ]}>
+      <Text style={ [styles.sectionDescription] }>
         {children}
       </Text>
     </View>
@@ -82,6 +71,9 @@ const App: () => Node = () => {
           <Section title="TenderCats">
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.
+          </Section>
+          <Section title="Theme">
+            { useContext(ThemeContext) }
           </Section>
           <Section title="Prueba de conexión a DB">
             <Text style={styles.highlight}>{gato}</Text>
