@@ -2,7 +2,7 @@
 // pasa el `colorScheme` (light o dark) pero en un futuro puede pasar todo el
 // StyleSheet.
 import React, { createContext } from 'react'
-import { Appearance } from 'react-native'
+import { useColorScheme } from 'react-native'
 import { Provider as PaperProvider } from 'react-native-paper'
 
 import { Light, Dark } from '../themes'
@@ -18,7 +18,7 @@ export const ThemeProvider = ({ children }) => {
   //   - dark
   //   - null: Si no especificó nada.
   // Entonces defaulteamos a light.
-  const colorScheme = Appearance.getColorScheme() || 'light'
+  const colorScheme = useColorScheme() || 'light'
 
   return (
     <ThemeContext.Provider value={ colorScheme }>
