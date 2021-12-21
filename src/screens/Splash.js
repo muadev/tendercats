@@ -10,7 +10,7 @@ const Splash = ({ navigation }) => {
 
   return (
     <TouchableRipple
-      onPress={() => navigation.replace('Demo')}
+      onPress={() => navigation.replace('LectoEscritura')}
       style={[styles.tocable, { backgroundColor: colors.gradientEnd }]}>
       <View style={styles.contenedor}>
         <Image style={styles.logo} source={images.isotipo} />
