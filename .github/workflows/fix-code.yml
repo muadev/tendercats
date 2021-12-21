@@ -1,0 +1,36 @@
+name: Fix prettier & eslint
+
+# Se ejecuta cada vez que se hace push al repo
+on: push
+
+jobs:
+# nuclea a prettier & eslint
+  fix-code:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout main
+      uses: actions/checkout@v2
+
+    - name: Setup node
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
+
+    - name: Install modules npm
+      run: npm install
+      
+    - name: Fix prettier
+      uses: creyD/prettier_action@v3.3
+      with:
+        # By default excludes node_modules. 
+        # --loglevel debug shows files changed.
+        prettier_options: --write **/*.{js,md}
+
+    - name: Fix eslint
+      run: npm run fix-lint
+
