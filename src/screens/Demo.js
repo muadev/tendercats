@@ -84,7 +84,7 @@ const App: () => Node = () => {
             screen and then come back to see your edits.
           </Section>
           <Section title="Prueba de conexión a DB">
-            <Text style={styles.highlight}>{ gato }</Text>
+            <Text style={styles.highlight}>{gato}</Text>
           </Section>
           <Section title="See Your Changes">
             <ReloadInstructions />

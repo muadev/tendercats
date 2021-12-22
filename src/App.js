@@ -11,10 +11,10 @@ const App = () => {
   return (
     <DatabaseProvider>
       <ThemeProvider>
-        { /* El contenedor maneja el estado de la navegación y se encarga de
-          cosas como el deep linking y el botón de volver en Android. */ }
+        {/* El contenedor maneja el estado de la navegación y se encarga de
+          cosas como el deep linking y el botón de volver en Android. */}
         <NavigationContainer>
-          { /* El navegador principal que gestiona las diferentes pantallas. */ }
+          {/* El navegador principal que gestiona las diferentes pantallas. */}
           <MainNavigation />
         </NavigationContainer>
       </ThemeProvider>

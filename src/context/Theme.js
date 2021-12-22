@@ -19,8 +19,8 @@ export const ThemeProvider = ({ children }) => {
   const colorScheme = Appearance.getColorScheme() || 'light'
 
   return (
-    <ThemeContext.Provider value={ colorScheme }>
-      { children }
+    <ThemeContext.Provider value={colorScheme}>
+      {children}
     </ThemeContext.Provider>
   )
 }
