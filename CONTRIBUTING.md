@@ -2,7 +2,8 @@
 
 ## Código de conducta
 
-Para contribuir a este proyecto te pedimos que leas y respetes el [código de conducta](https://www.contributor-covenant.org/es/version/2/0/code_of_conduct/).
+Para contribuir a este proyecto te pedimos que leas y respetes el [código de
+conducta](CODE_OF_CONDUCT.md).
 
 ## Tecnología
 
