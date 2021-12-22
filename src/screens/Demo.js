@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import type { Node } from 'react'
 import {
   SafeAreaView,
@@ -26,12 +26,10 @@ import {
 
 import { Text } from 'react-native-paper'
 
-import { ThemeContext } from '../context/Theme'
+import { useTheme } from '../context/Theme'
 import { getGatite } from '../context/Database'
 
 const Section = ({ children, title }): Node => {
-  const isDarkMode = useContext(ThemeContext) === 'dark'
-
   return (
     <View style={styles.sectionContainer}>
       <Text style={ [styles.sectionTitle] }>
@@ -47,7 +45,7 @@ const Section = ({ children, title }): Node => {
 const App: () => Node = () => {
   const [gato, setGato] = useState('Estado de un gato')
 
-  const isDarkMode = useContext(ThemeContext) === 'dark'
+  const isDarkMode = useTheme().dark
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter
@@ -73,7 +71,7 @@ const App: () => Node = () => {
             screen and then come back to see your edits.
           </Section>
           <Section title="Theme">
-            { useContext(ThemeContext) }
+            { useTheme().name }
           </Section>
           <Section title="Prueba de conexión a DB">
             <Text style={styles.highlight}>{gato}</Text>

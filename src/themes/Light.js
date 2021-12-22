@@ -1,10 +1,16 @@
-// Ejemplo de modificación del theme default de Paper.
-import { DefaultTheme } from 'react-native-paper'
+// Light theme.
+import { DefaultTheme as LightNavigationTheme } from '@react-navigation/native'
+import { DefaultTheme as LightPaperTheme } from 'react-native-paper'
 
+// Integramos los themes default de React Navigation y Paper antes de
+// hacer las modificaciones para el light theme.
 export default {
-  ...DefaultTheme,
+  ...LightNavigationTheme,
+  ...LightPaperTheme,
+  name: 'Light',
   colors: {
-    ...DefaultTheme.colors,
+    ...LightNavigationTheme.colors,
+    ...LightPaperTheme.colors,
     text: 'red'
   }
 }
