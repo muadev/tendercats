@@ -4,10 +4,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 // Para poder acceder al contexto de themes debe estar anidado en el proveedor,
 // en `App.js`.
-import { useTheme } from './context/Theme'
+import { useTheme } from 'context/Theme'
 
 // Un componente por pantalla.
-import Demo from './screens/Demo'
+import Demo from 'screens/Demo'
 
 // Se inicializa el navegador y se le anidan las pantallas.
 const Stack = createNativeStackNavigator()

@@ -5,7 +5,7 @@ import React, { createContext, useContext } from 'react'
 import { useColorScheme } from 'react-native'
 import { Provider as PaperProvider } from 'react-native-paper'
 
-import { Light, Dark } from '../themes'
+import { Light, Dark } from 'assets/themes'
 
 // Exportamos el contexto en sí, para usar con `useContext` y pedir
 // el valor.
