@@ -30,4 +30,4 @@ jobs:
           prettier_options: --write **/*.{js,md}
 
       - name: Fix eslint
-        run: npm run fix-lint
+        run: npm run lint -- --fix
