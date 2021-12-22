@@ -14,7 +14,7 @@ const Splash = ({ navigation }) => {
       style={ [styles.tocable, { backgroundColor: colors.gradientEnd }] }
     >
       <View style={ styles.contenedor }>
-        <Image style={ styles.logo } source={ images.isoLogo } />
+        <Image style={ styles.logo } source={ images.isotipo } />
       </View>
     </TouchableRipple>
   )
