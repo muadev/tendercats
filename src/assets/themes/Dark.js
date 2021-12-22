@@ -11,6 +11,7 @@ export default {
   colors: {
     ...DarkNavigationTheme.colors,
     ...DarkPaperTheme.colors,
-    text: 'yellow'
+    gradientStart: 'rgba(48,39,122,1)',
+    gradientEnd: 'rgba(105,62,212,1)'
   }
 }

@@ -11,6 +11,9 @@ export default {
   colors: {
     ...LightNavigationTheme.colors,
     ...LightPaperTheme.colors,
-    text: 'red'
+    // Necesitamos una librería externa para hacer gradientes pero ya lo dejo
+    // acá.
+    gradientStart: 'rgba(48,39,122,1)',
+    gradientEnd: 'rgba(105,62,212,1)'
   }
 }
