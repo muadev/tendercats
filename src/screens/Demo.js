@@ -27,7 +27,7 @@ import {
 import { Text } from 'react-native-paper'
 
 import { useTheme } from '../context/Theme'
-import { getGatite } from '../context/Database'
+import { useGatite } from '../context/Database'
 
 const Section = ({ children, title }): Node => {
   return (
@@ -51,7 +51,7 @@ const App: () => Node = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter
   }
 
-  getGatite('1').on('value', snapshot => {
+  useGatite('1').on('value', snapshot => {
     setGato(snapshot.val())
   })
 
