@@ -6,34 +6,35 @@ const LectoEscritura = ({ navigation }) => {
   const [gato, setGato] = useState('Estado de un gato')
 
   useEffect(() => {
-    database().ref('/gatxs/').on('value', snapshot => {
-      console.log(snapshot.val())
-      setGato(snapshot.val() && snapshot.val()['gato11'])
-    })
+    database()
+      .ref('/gatxs/')
+      .on('value', snapshot => {
+        console.log(snapshot.val())
+        setGato(snapshot.val() && snapshot.val()['gato11'])
+      })
   })
 
-  const update = (text) => {
-    database().ref('/gatxs').update({gato11: text})
+  const update = text => {
+    database().ref('/gatxs').update({ gato11: text })
   }
-    
+
   return (
     <View>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>
-          { gato }
-        </Text>
+        <Text>{gato}</Text>
       </View>
 
       <TextInput
-          style={{height: 40}}
-          placeholder= 'Ingresa un valor para Gato'
-          onChangeText={text => update(text)}
+        style={{ height: 40 }}
+        placeholder="Ingresa un valor para Gato"
+        onChangeText={text => update(text)}
       />
-        <Text>
-          { gato }
-        </Text>
-    <Button title='Volver a Demo' onPress={() => navigation.navigate('Demo')} />
-    <Button title='Go Back' onPress={() => navigation.goBack} />
+      <Text>{gato}</Text>
+      <Button
+        title="Volver a Demo"
+        onPress={() => navigation.navigate('Demo')}
+      />
+      <Button title="Go Back" onPress={() => navigation.goBack} />
     </View>
   )
 }
