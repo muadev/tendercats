@@ -10,10 +10,9 @@ const LectoEscritura = ({ navigation }) => {
 
   useEffect(() => {
     // TODO, extraer referencia desde el componente a un archivo de queries.
-    db.ref(`gatites/0`)
-      .on('value', snapshot => {
-        setGato(snapshot.val().nombre)
-      })
+    db.ref(`gatites/0`).on('value', snapshot => {
+      setGato(snapshot.val().nombre)
+    })
   })
 
   const update = (id, text) => {
