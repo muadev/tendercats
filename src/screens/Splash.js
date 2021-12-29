@@ -10,11 +10,10 @@ const Splash = ({ navigation }) => {
 
   return (
     <TouchableRipple
-      onPress={ () => navigation.replace('Demo') }
-      style={ [styles.tocable, { backgroundColor: colors.gradientEnd }] }
-    >
-      <View style={ styles.contenedor }>
-        <Image style={ styles.logo } source={ images.isotipo } />
+      onPress={() => navigation.replace('Demo')}
+      style={[styles.tocable, { backgroundColor: colors.gradientEnd }]}>
+      <View style={styles.contenedor}>
+        <Image style={styles.logo} source={images.isotipo} />
       </View>
     </TouchableRipple>
   )
@@ -24,7 +23,7 @@ const Splash = ({ navigation }) => {
 // con useTheme().
 const styles = StyleSheet.create({
   tocable: {
-    flex: 1,
+    flex: 1
   },
 
   contenedor: {

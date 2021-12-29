@@ -19,7 +19,11 @@ const MainNavigation = () => {
   return (
     <NavigationContainer theme={useTheme()}>
       <Stack.Navigator initialRouteName="Splash">
-        <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
+        <Stack.Screen
+          name="Splash"
+          component={Splash}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen name="Demo" component={Demo} />
       </Stack.Navigator>
     </NavigationContainer>
