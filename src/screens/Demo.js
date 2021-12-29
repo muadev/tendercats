@@ -13,8 +13,10 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  View
+  View,
+  Button
 } from 'react-native'
+import auth from '@react-native-firebase/auth'
 
 import {
   Colors,
@@ -38,7 +40,7 @@ const Section = ({ children, title }): Node => {
   )
 }
 
-const App: () => Node = () => {
+const App: () => Node = ({ navigation }) => {
   const [gato, setGato] = useState('Estado de un gato')
 
   const isDarkMode = useTheme().dark
@@ -47,7 +49,7 @@ const App: () => Node = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter
   }
 
-  useGatite('0').on('value', snapshot => {
+  useGatite('1').on('value', snapshot => {
     setGato(snapshot.val().nombre)
   })
 
@@ -62,6 +64,11 @@ const App: () => Node = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white
           }}>
+          <Button
+            title='Deslogueame'
+            onPress={ () => auth().signOut().then( navigation.navigate('Login')) }
+          />
+
           <Section title="TenderCats">
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.

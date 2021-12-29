@@ -8,6 +8,7 @@ import { useTheme } from 'context/Theme'
 
 // Un componente por pantalla.
 import Splash from 'screens/Splash'
+import Login from 'screens/Login'
 import Demo from 'screens/Demo'
 import LectoEscritura from 'screens/LectoEscritura'
 
@@ -19,7 +20,7 @@ const MainNavigation = () => {
   // el deep linking y el botón de volver en Android.
   return (
     <NavigationContainer theme={useTheme()}>
-      <Stack.Navigator initialRouteName="Splash">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Splash"
           component={Splash}
@@ -27,6 +28,11 @@ const MainNavigation = () => {
         />
         <Stack.Screen name="Demo" component={Demo} />
         <Stack.Screen name="LectoEscritura" component={LectoEscritura} />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )
