@@ -5,12 +5,12 @@ import { TouchableRipple } from 'react-native-paper'
 import { useTheme } from 'context/Theme'
 import images from 'assets/images'
 
-const Splash = ({ navigation }) => {
+const Splash = ({ navigation, route }) => {
   const { colors } = useTheme()
 
   return (
     <TouchableRipple
-      onPress={() => navigation.replace('LectoEscritura')}
+      onPress={() => navigation.replace(route.params.siguiente)}
       style={[styles.tocable, { backgroundColor: colors.gradientEnd }]}>
       <View style={styles.contenedor}>
         <Image style={styles.logo} source={images.isotipo} />
