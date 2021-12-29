@@ -32,12 +32,8 @@ import { useGatite } from '../context/Database'
 const Section = ({ children, title }): Node => {
   return (
     <View style={styles.sectionContainer}>
-      <Text style={ [styles.sectionTitle] }>
-        {title}
-      </Text>
-      <Text style={ [styles.sectionDescription] }>
-        {children}
-      </Text>
+      <Text style={[styles.sectionTitle]}>{title}</Text>
+      <Text style={[styles.sectionDescription]}>{children}</Text>
     </View>
   )
 }
@@ -70,9 +66,7 @@ const App: () => Node = () => {
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.
           </Section>
-          <Section title="Theme">
-            { useTheme().name }
-          </Section>
+          <Section title="Theme">{useTheme().name}</Section>
           <Section title="Prueba de conexión a DB">
             <Text style={styles.highlight}>{gato}</Text>
           </Section>

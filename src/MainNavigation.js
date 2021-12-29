@@ -16,9 +16,9 @@ const MainNavigation = () => {
   // El contenedor maneja el estado de la navegación y se encarga de cosas como
   // el deep linking y el botón de volver en Android.
   return (
-    <NavigationContainer theme={ useTheme() }>
+    <NavigationContainer theme={useTheme()}>
       <Stack.Navigator>
-        <Stack.Screen name="Demo" component={ Demo } />
+        <Stack.Screen name="Demo" component={Demo} />
       </Stack.Navigator>
     </NavigationContainer>
   )

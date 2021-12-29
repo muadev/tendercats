@@ -25,10 +25,8 @@ export const ThemeProvider = ({ children }) => {
   const theme = colorScheme === 'dark' ? Dark : Light
 
   return (
-    <ThemeContext.Provider value={ theme }>
-      <PaperProvider theme={ theme }>
-        { children }
-      </PaperProvider>
+    <ThemeContext.Provider value={theme}>
+      <PaperProvider theme={theme}>{children}</PaperProvider>
     </ThemeContext.Provider>
   )
 }

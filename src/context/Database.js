@@ -19,4 +19,4 @@ export const DatabaseProvider = ({ children }) => {
 // Exportamos funciones de utilidad para abstraer un poco la estructura de la
 // base de datos.
 export const useGatites = () => useContext(DatabaseContext).ref('gatites')
-export const useGatite = (id) => useContext(DatabaseContext).ref(`gatites/${id}`)
+export const useGatite = id => useContext(DatabaseContext).ref(`gatites/${id}`)
