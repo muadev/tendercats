@@ -6,14 +6,13 @@
  * @flow strict-local
  */
 
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import type { Node } from 'react'
 import {
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View
 } from 'react-native'
 
@@ -25,32 +24,16 @@ import {
   ReloadInstructions
 } from 'react-native/Libraries/NewAppScreen'
 
-import { ThemeContext } from '../context/Theme'
-import { getGatite } from '../context/Database'
+import { Text } from 'react-native-paper'
+
+import { useTheme } from '../context/Theme'
+import { useGatite } from '../context/Database'
 
 const Section = ({ children, title }): Node => {
-  const isDarkMode = useContext(ThemeContext) === 'dark'
-
   return (
     <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black
-          }
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark
-          }
-        ]}>
-        {children}
-      </Text>
+      <Text style={[styles.sectionTitle]}>{title}</Text>
+      <Text style={[styles.sectionDescription]}>{children}</Text>
     </View>
   )
 }
@@ -58,13 +41,13 @@ const Section = ({ children, title }): Node => {
 const App: () => Node = () => {
   const [gato, setGato] = useState('Estado de un gato')
 
-  const isDarkMode = useContext(ThemeContext) === 'dark'
+  const isDarkMode = useTheme().dark
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter
   }
 
-  getGatite('1').on('value', snapshot => {
+  useGatite('1').on('value', snapshot => {
     setGato(snapshot.val())
   })
 
@@ -83,6 +66,7 @@ const App: () => Node = () => {
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.
           </Section>
+          <Section title="Theme">{useTheme().name}</Section>
           <Section title="Prueba de conexión a DB">
             <Text style={styles.highlight}>{gato}</Text>
           </Section>
