@@ -29,8 +29,8 @@ const LectoEscritura = ({ navigation }) => {
       <TextInput
         style={{ height: 40 }}
         placeholder="Ingresa un valor para Gato"
-        onSubmitEditing={event =>  update(0, event.nativeEvent.text) }
-        defaultValue= {gato}
+        onSubmitEditing={event => update(0, event.nativeEvent.text)}
+        defaultValue={gato}
       />
 
       <Text>{gato}</Text>
