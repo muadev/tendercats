@@ -10,7 +10,7 @@ const LectoEscritura = ({ navigation }) => {
 
   useEffect(() => {
     // TODO, extraer referencia desde el componente a un archivo de queries.
-    db.ref(`gatites/0`).on('value', snapshot => {
+    db.ref(`gatites/0`).once('value', snapshot => {
       setGato(snapshot.val().nombre)
     })
   })
@@ -18,20 +18,20 @@ const LectoEscritura = ({ navigation }) => {
   const update = (id, text) => {
     // TODO, extraer referencia desde el componente a un archivo de queries.
     db.ref(`gatites/${id}`).update({ nombre: text })
+    setGato(text)
   }
 
   return (
     <View>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>{gato}</Text>
-      </View>
-
       <TextInput
         style={{ height: 40 }}
         placeholder="Ingresa un valor para Gato"
-        onChangeText={text => update(0, text)}
+        onSubmitEditing={event =>  update(0, event.nativeEvent.text) }
+        defaultValue= {gato}
       />
+
       <Text>{gato}</Text>
+
       <Button
         title="Volver a Demo"
         onPress={() => navigation.navigate('Demo')}
