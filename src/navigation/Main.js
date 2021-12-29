@@ -26,34 +26,32 @@ const MainNavigation = () => {
   return (
     <NavigationContainer theme={useTheme()}>
       <Stack.Navigator initialRouteName="Splash">
-        {
-          estaLogueado ? (
-            <>
-              <Stack.Screen
-                name="Splash"
-                component={Splash}
-                options={{ headerShown: false }}
-                initialParams= {{ siguiente }}
-              />
-              <Stack.Screen name="Demo" component={Demo} />
-            </>
-          ) : (
-            <>
-              <Stack.Screen
-                name="Splash"
-                component={Splash}
-                options={{ headerShown: false }}
-                initialParams= {{ siguiente }}
-              />
-              <Stack.Screen
-                name="Login"
-                component={Login}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen name="Auth" component={Auth} />
-            </>
-          )
-        }
+        {estaLogueado ? (
+          <>
+            <Stack.Screen
+              name="Splash"
+              component={Splash}
+              options={{ headerShown: false }}
+              initialParams={{ siguiente }}
+            />
+            <Stack.Screen name="Demo" component={Demo} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              name="Splash"
+              component={Splash}
+              options={{ headerShown: false }}
+              initialParams={{ siguiente }}
+            />
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="Auth" component={Auth} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   )

@@ -65,8 +65,8 @@ const App: () => Node = ({ navigation }) => {
             backgroundColor: isDarkMode ? Colors.black : Colors.white
           }}>
           <Button
-            title='Deslogueame'
-            onPress={ () => auth().signOut().then( navigation.navigate('Login')) }
+            title="Deslogueame"
+            onPress={() => auth().signOut().then(navigation.navigate('Login'))}
           />
 
           <Section title="TenderCats">

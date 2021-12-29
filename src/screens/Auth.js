@@ -30,13 +30,13 @@ const Login = ({ navigation }) => {
       <View>
         <Text>Login</Text>
         <Button
-          title= 'Logueame'
-          onPress= {
-          () => auth().signInWithEmailAndPassword('cambiame@ejemplo.com', '123456')  
+          title="Logueame"
+          onPress={() =>
+            auth().signInWithEmailAndPassword('cambiame@ejemplo.com', '123456')
           }
         />
       </View>
-    );
+    )
   }
 
   return (
