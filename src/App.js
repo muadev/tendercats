@@ -2,9 +2,9 @@
 // y demás.
 import React from 'react'
 
-import MainNavigation from './MainNavigation'
-import { ThemeProvider } from './context/Theme'
-import { DatabaseProvider } from './context/Database'
+import MainNavigation from 'navigation/Main'
+import { ThemeProvider } from 'context/Theme'
+import { DatabaseProvider } from 'context/Database'
 
 const App = () => {
   return (

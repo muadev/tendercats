@@ -26,8 +26,8 @@ import {
 
 import { Text } from 'react-native-paper'
 
-import { useTheme } from '../context/Theme'
-import { useGatite } from '../context/Database'
+import { useTheme } from 'context/Theme'
+import { useGatite } from 'context/Database'
 
 const Section = ({ children, title }): Node => {
   return (
