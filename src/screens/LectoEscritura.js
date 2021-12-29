@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Text, TextInput, View, Button } from 'react-native'
-import { DatabaseContext } from '../context/Database'
+import { DatabaseContext } from 'context/Database'
 
 const LectoEscritura = ({ navigation }) => {
   const [gato, setGato] = useState('Buscando gati..')
