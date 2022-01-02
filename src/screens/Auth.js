@@ -14,15 +14,8 @@ const Auth = ({ navigation }) => {
   return (
     <View>
       <Text>{user}</Text>
-      <Button
-        title="Login"
-        onPress={() =>
-          navigation.navigate('Login')
-        }
-      />
-      <Button
-        title="Registrase"
-      />
+      <Button title="Login" onPress={() => navigation.navigate('Login')} />
+      <Button title="Registrase" />
     </View>
   )
 }

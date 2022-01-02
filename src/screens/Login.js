@@ -33,8 +33,7 @@ const Login = ({ navigation }) => {
         onPress={() => {
           auth().signInWithEmailAndPassword(mail, password)
           navigation.navigate('Demo')
-        }}
-      >
+        }}>
         Logueate
       </Button>
     </View>

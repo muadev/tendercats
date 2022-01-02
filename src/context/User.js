@@ -7,7 +7,6 @@ import auth from '@react-native-firebase/auth'
 export const UserContext = createContext('')
 
 export const UserProvider = ({ children }) => {
-
   const [initializing, setInitializing] = useState(true)
   const [user, setUser] = useState()
 
@@ -21,10 +20,5 @@ export const UserProvider = ({ children }) => {
     return subscriber
   }, [])
 
-
-  return (
-    <UserContext.Provider value={user}>
-      {children}
-    </UserContext.Provider>
-  )
+  return <UserContext.Provider value={user}>{children}</UserContext.Provider>
 }

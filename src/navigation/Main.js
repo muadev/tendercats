@@ -19,7 +19,7 @@ import LectoEscritura from 'screens/LectoEscritura'
 // Se inicializa el navegador y se le anidan las pantallas.
 const Stack = createNativeStackNavigator()
 
- const MainNavigation = () => {
+const MainNavigation = () => {
   // El contenedor maneja el estado de la navegación y se encarga de cosas como
   // el deep linking y el botón de volver en Android.
 
