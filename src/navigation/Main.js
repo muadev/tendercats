@@ -19,42 +19,31 @@ import LectoEscritura from 'screens/LectoEscritura'
 // Se inicializa el navegador y se le anidan las pantallas.
 const Stack = createNativeStackNavigator()
 
-const MainNavigation = () => {
+ const MainNavigation = () => {
   // El contenedor maneja el estado de la navegación y se encarga de cosas como
   // el deep linking y el botón de volver en Android.
 
   const estaLogueado = React.useContext(UserContext)
   const siguiente = estaLogueado ? 'Demo' : 'Auth'
 
+  console.log(estaLogueado)
+
   return (
     <NavigationContainer theme={useTheme()}>
       <Stack.Navigator initialRouteName="Splash">
-        {estaLogueado ? (
-          <>
-            <Stack.Screen
-              name="Splash"
-              component={Splash}
-              options={{ headerShown: false }}
-              initialParams={{ siguiente }}
-            />
-            <Stack.Screen name="Demo" component={Demo} />
-          </>
-        ) : (
-          <>
-            <Stack.Screen
-              name="Splash"
-              component={Splash}
-              options={{ headerShown: false }}
-              initialParams={{ siguiente }}
-            />
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen name="Auth" component={Auth} />
-          </>
-        )}
+        <Stack.Screen
+          name="Splash"
+          component={Splash}
+          options={{ headerShown: false }}
+          initialParams={{ siguiente }}
+        />
+        <Stack.Screen name="Auth" component={Auth} />
+        <Stack.Screen name="Demo" component={Demo} />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )

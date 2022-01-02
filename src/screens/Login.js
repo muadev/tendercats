@@ -9,21 +9,6 @@ import images from 'assets/images'
 const Login = ({ navigation }) => {
   const { colors } = useTheme()
 
-  const [initializing, setInitializing] = useState(true)
-  const [user, setUser] = useState()
-
-  function onAuthStateChanged(user) {
-    setUser(user)
-    if (initializing) setInitializing(false)
-  }
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
-    return subscriber
-  }, [])
-
-  if (initializing) return null
-
   if (!user) {
     return (
       <View>
