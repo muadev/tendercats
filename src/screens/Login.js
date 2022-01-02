@@ -1,56 +1,44 @@
-import React, { useState, useEffect } from 'react'
-import { View, Image, StyleSheet } from 'react-native'
-import { TouchableRipple, Text, Button } from 'react-native-paper'
+import React, { useState } from 'react'
+import { View, TextInput } from 'react-native'
+import { Text, Button } from 'react-native-paper'
 import auth from '@react-native-firebase/auth'
 
 import { useTheme } from 'context/Theme'
 import images from 'assets/images'
 
 const Login = ({ navigation }) => {
+  const [mail, onChangeMail] = React.useState(null)
+  const [password, onChangePassword] = React.useState(null)
+
   const { colors } = useTheme()
 
-  if (!user) {
-    return (
-      <View>
-        <Text>Login</Text>
-        <Button
-          title="Logueame"
-          onPress={() =>
-            auth().signInWithEmailAndPassword('cambiame@ejemplo.com', '123456')
-          }
-        />
-      </View>
-    )
-  }
-
   return (
-    <TouchableRipple
-      onPress={() => navigation.replace('Demo')}
-      style={[styles.tocable, { backgroundColor: colors.gradientEnd }]}>
-      <View style={styles.contenedor}>
-        <Image style={styles.logo} source={images.isotipo} />
-      </View>
-    </TouchableRipple>
+    <View>
+      <Text>Login</Text>
+
+      <TextInput
+        placeholder="Ingresa tu mail.."
+        onChangeText={onChangeMail}
+        value={mail}
+      />
+
+      <TextInput
+        placeholder="Ingresa tu contraseña.."
+        onChangeText={onChangePassword}
+        value={password}
+      />
+
+      <Button
+        mode="contained"
+        onPress={() => {
+          auth().signInWithEmailAndPassword(mail, password)
+          navigation.navigate('Demo')
+        }}
+      >
+        Logueate
+      </Button>
+    </View>
   )
 }
-
-// Estilos estructurales. Lo que cambia con el theme se busca en el componente,
-// con useTheme().
-const styles = StyleSheet.create({
-  tocable: {
-    flex: 1
-  },
-
-  contenedor: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
-  logo: {
-    height: 200,
-    width: 200
-  }
-})
 
 export default Login
