@@ -6,6 +6,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 // en `App.js`.
 import { useTheme } from 'context/Theme'
 
+// Para poder acceder al contexto de Usuario y armar la navegación.
+import { UserContext } from 'context/User'
+
 // Un componente por pantalla.
 import Splash from 'screens/Splash'
 import Auth from 'screens/Auth'
@@ -20,7 +23,7 @@ const MainNavigation = () => {
   // El contenedor maneja el estado de la navegación y se encarga de cosas como
   // el deep linking y el botón de volver en Android.
 
-  const estaLogueado = false
+  const estaLogueado = React.useContext(UserContext)
   const siguiente = estaLogueado ? 'Demo' : 'Auth'
 
   return (
