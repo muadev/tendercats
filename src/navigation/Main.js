@@ -9,6 +9,7 @@ import { useTheme } from 'context/Theme'
 // Un componente por pantalla.
 import Splash from 'screens/Splash'
 import Demo from 'screens/Demo'
+import LectoEscritura from 'screens/LectoEscritura'
 
 // Se inicializa el navegador y se le anidan las pantallas.
 const Stack = createNativeStackNavigator()
@@ -25,6 +26,7 @@ const MainNavigation = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Demo" component={Demo} />
+        <Stack.Screen name="LectoEscritura" component={LectoEscritura} />
       </Stack.Navigator>
     </NavigationContainer>
   )

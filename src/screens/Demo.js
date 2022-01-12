@@ -47,8 +47,8 @@ const App: () => Node = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter
   }
 
-  useGatite('1').on('value', snapshot => {
-    setGato(snapshot.val())
+  useGatite('0').on('value', snapshot => {
+    setGato(snapshot.val().nombre)
   })
 
   return (
