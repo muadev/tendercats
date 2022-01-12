@@ -26,10 +26,9 @@ const MainNavigation = () => {
   const estaLogueado = async () => {
     try {
       await React.useContext(UserContext)
-    }
-    catch {
+    } catch {
       //TODO Este error debiera moestrarse en la app.
-      console.log("Error de estaLogueado")
+      console.log('Error de estaLogueado')
     }
   }
   const siguiente = estaLogueado ? 'Demo' : 'Auth'
