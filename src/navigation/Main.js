@@ -15,6 +15,7 @@ import Auth from 'screens/Auth'
 import Login from 'screens/Login'
 import Demo from 'screens/Demo'
 import LectoEscritura from 'screens/LectoEscritura'
+import SubirFoto from 'screens/SubirFoto'
 
 // Se inicializa el navegador y se le anidan las pantallas.
 const Stack = createNativeStackNavigator()
@@ -45,6 +46,7 @@ const MainNavigation = () => {
     <>
       <Stack.Screen name="LectoEscritura" component={LectoEscritura} />
       <Stack.Screen name="Demo" component={Demo} />
+      <Stack.Screen name="SubirFoto" component={SubirFoto} />
     </>
   ) : (
     <>
