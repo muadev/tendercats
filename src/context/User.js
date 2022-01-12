@@ -20,5 +20,7 @@ export const UserProvider = ({ children }) => {
     return subscriber
   }, [])
 
+  if (initializing) return null
+
   return <UserContext.Provider value={user}>{children}</UserContext.Provider>
 }
