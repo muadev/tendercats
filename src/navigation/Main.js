@@ -23,10 +23,16 @@ const MainNavigation = () => {
   // El contenedor maneja el estado de la navegación y se encarga de cosas como
   // el deep linking y el botón de volver en Android.
 
-  const estaLogueado = React.useContext(UserContext)
+  const estaLogueado = async () => {
+    try {
+      await React.useContext(UserContext)
+    }
+    catch {
+      //TODO Este error debiera moestrarse en la app.
+      console.log("Error de estaLogueado")
+    }
+  }
   const siguiente = estaLogueado ? 'Demo' : 'Auth'
-
-  console.log(estaLogueado)
 
   return (
     <NavigationContainer theme={useTheme()}>
