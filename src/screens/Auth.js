@@ -9,7 +9,7 @@ import { UserContext } from 'context/User'
 const Auth = ({ navigation }) => {
   const { colors } = useTheme()
 
-  const user = React.useContext(UserContext).email
+  const user = React.useContext(UserContext).email || "Email"
 
   return (
     <View>

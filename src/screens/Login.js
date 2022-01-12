@@ -18,12 +18,16 @@ const Login = ({ navigation }) => {
 
       <TextInput
         placeholder="Ingresa tu mail.."
+        keyboardType="email-address"
+        maxLength={64}
         onChangeText={onChangeMail}
         value={mail}
       />
 
       <TextInput
         placeholder="Ingresa tu contraseña.."
+        secureTextEntry={true}
+        maxLength={64}
         onChangeText={onChangePassword}
         value={password}
       />
