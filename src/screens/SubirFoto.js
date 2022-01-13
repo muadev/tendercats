@@ -1,21 +1,46 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { Button, View, Text, PermissionsAndroid } from 'react-native'
+import { launchImageLibrary } from 'react-native-image-picker'
 
 const SubirFoto = () => {
-  // TO-Do @max connectar con storage real y no storage()
-  const reference = storage().ref('sm.png')
+  const openPicker = async () => {
+    launchImageLibrary(options, callback)
+    // You can also use as a promise without 'callback':
+    const result = await launchImageLibrary(options)
+    console.log('Response = ', response)
+  }
+
+  const selectImage = () => {
+    console.log('echoed')
+    const options = {
+      maxWidth: 2000,
+      maxHeight: 2000,
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    }
+
+    ImagePicker.showImagePicker(options, response => {
+      console.log('Response = ', response)
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker')
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error)
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton)
+      } else {
+        const source = { uri: response.uri }
+        console.log(source)
+        setImage(source)
+      }
+    })
+  }
 
   return (
     <View>
-      <Button
-        onPress={async () => {
-          // Para que ande crear imagen en sdcard -> Pictures -> sm.png
-          // path to existing file on filesystem
-          const pathToFile = `${utils.FilePath.PICTURES_DIRECTORY}/sm.png`
-          // uploads file
-          await reference.putFile(pathToFile)
-        }}
-      />
+      <Button title="Elegi una imagen" onPress={openPicker} />
     </View>
   )
 }
