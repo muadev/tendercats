@@ -18,7 +18,7 @@ const Splash = ({ navigation, route }) => {
 
   return (
     <TouchableRipple
-      onPress={ initializing ? null : onPress }
+      onPress={initializing ? null : onPress}
       style={[styles.tocable, { backgroundColor: colors.gradientEnd }]}>
       <View style={styles.contenedor}>
         <Image style={styles.logo} source={images.isotipo} />

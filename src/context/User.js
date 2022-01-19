@@ -20,7 +20,11 @@ export const UserProvider = ({ children }) => {
     return subscriber
   }, [initializing])
 
-  return <UserContext.Provider value={ { user, initializing } }>{ children }</UserContext.Provider>
+  return (
+    <UserContext.Provider value={{ user, initializing }}>
+      {children}
+    </UserContext.Provider>
+  )
 }
 
 export const useAuth = () => useContext(UserContext)
