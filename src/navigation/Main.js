@@ -7,7 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useTheme } from 'context/Theme'
 
 // Para poder acceder al contexto de Usuario y armar la navegación.
-import { useAuth } from 'context/User'
+import { useAuth } from 'context/Auth'
 
 // Un componente por pantalla.
 import Splash from 'screens/Splash'

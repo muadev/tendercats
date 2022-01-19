@@ -3,20 +3,20 @@
 import React from 'react'
 
 import MainNavigation from 'navigation/Main'
-import { UserProvider } from 'context/User'
+import { AuthProvider } from 'context/Auth'
 import { ThemeProvider } from 'context/Theme'
 import { DatabaseProvider } from 'context/Database'
 
 const App = () => {
   return (
-    <UserProvider>
+    <AuthProvider>
       <DatabaseProvider>
         <ThemeProvider>
           {/* El contenedor de navegación que gestiona las diferentes pantallas. */}
           <MainNavigation />
         </ThemeProvider>
       </DatabaseProvider>
-    </UserProvider>
+    </AuthProvider>
   )
 }
 

@@ -3,7 +3,7 @@ import { View, Image, StyleSheet } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 
 import { useTheme } from 'context/Theme'
-import { useAuth } from 'context/User'
+import { useAuth } from 'context/Auth'
 import images from 'assets/images'
 
 const Splash = ({ navigation, route }) => {
