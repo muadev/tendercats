@@ -66,7 +66,11 @@ const App: () => Node = ({ navigation }) => {
           }}>
           <Button
             title="Deslogueame"
-            onPress={() => auth().signOut().then(navigation.navigate('Login'))}
+            onPress={() => auth().signOut().then(
+              // Igual que en Login, no hay que navegar manualmente porque las
+              // pantallas se rerenderizan sin user después de desloguearnos.
+              console.log('Deslogueadx!')
+            )}
           />
 
           <Section title="TenderCats">

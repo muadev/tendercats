@@ -28,7 +28,7 @@ const MainNavigation = () => {
         name="Splash"
         component={Splash}
         options={{ headerShown: false }}
-        initialParams={{ siguiente: 'Demo' }}
+        initialParams={{ siguiente: 'LectoEscritura' }}
       />
       <Stack.Screen name="Demo" component={Demo} />
       <Stack.Screen name="LectoEscritura" component={LectoEscritura} />
