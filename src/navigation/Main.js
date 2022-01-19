@@ -21,11 +21,12 @@ const Stack = createNativeStackNavigator()
 
 const MainNavigation = () => {
   const { user, initializing } = useAuth()
+  const theme = useTheme()
 
   // Sólo mostramos el Splash si estamos inicializando.
   if (initializing) {
     return (
-      <NavigationContainer theme={useTheme()}>
+      <NavigationContainer theme={theme}>
         <Stack.Navigator>
           <Stack.Screen
             name="Splash"
@@ -59,7 +60,7 @@ const MainNavigation = () => {
   // El contenedor maneja el estado de la navegación y se encarga de cosas como
   // el deep linking y el botón de volver en Android.
   return (
-    <NavigationContainer theme={useTheme()}>
+    <NavigationContainer theme={theme}>
       <Stack.Navigator>{Pantallas}</Stack.Navigator>
     </NavigationContainer>
   )

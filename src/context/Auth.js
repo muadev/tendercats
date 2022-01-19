@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
 
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
     return subscriber
-  }, [])
+  }, [initializing])
 
   return (
     <AuthContext.Provider value={{ user, initializing }}>
