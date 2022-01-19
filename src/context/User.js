@@ -1,5 +1,5 @@
 // Contexto para proveer acceso al usuario.
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useState, useEffect, useContext } from 'react'
 import auth from '@react-native-firebase/auth'
 
 // Exportamos el contexto en sí, para usar con `useContext` y pedir
@@ -11,8 +11,8 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState()
 
   useEffect(() => {
-    function onAuthStateChanged(user) {
-      setUser(user)
+    function onAuthStateChanged(authState) {
+      setUser(authState)
       if (initializing) setInitializing(false)
     }
 
@@ -20,7 +20,7 @@ export const UserProvider = ({ children }) => {
     return subscriber
   }, [initializing])
 
-  if (initializing) return null
-
-  return <UserContext.Provider value={user}>{children}</UserContext.Provider>
+  return <UserContext.Provider value={ { user, initializing } }>{ children }</UserContext.Provider>
 }
+
+export const useAuth = () => useContext(UserContext)

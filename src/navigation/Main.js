@@ -7,7 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useTheme } from 'context/Theme'
 
 // Para poder acceder al contexto de Usuario y armar la navegación.
-import { UserContext } from 'context/User'
+import { useAuth } from 'context/User'
 
 // Un componente por pantalla.
 import Splash from 'screens/Splash'
@@ -20,30 +20,41 @@ import LectoEscritura from 'screens/LectoEscritura'
 const Stack = createNativeStackNavigator()
 
 const MainNavigation = () => {
+  const { user, initializing } = useAuth()
+
+  const Pantallas = user ? (
+    <>
+      <Stack.Screen
+        name="Splash"
+        component={Splash}
+        options={{ headerShown: false }}
+        initialParams={{ siguiente: 'Demo' }}
+      />
+      <Stack.Screen name="Demo" component={Demo} />
+      <Stack.Screen name="LectoEscritura" component={LectoEscritura} />
+    </>
+  ) : (
+    <>
+      <Stack.Screen
+        name="Splash"
+        component={Splash}
+        options={{ headerShown: false }}
+        initialParams={{ siguiente: 'Auth' }}
+      />
+      <Stack.Screen name="Auth" component={Auth} />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{ headerShown: false }}
+      />
+    </>
+  )
+
   // El contenedor maneja el estado de la navegación y se encarga de cosas como
   // el deep linking y el botón de volver en Android.
-
-  const estaLogueado = React.useContext(UserContext)
-
-  const siguiente = estaLogueado ? 'Demo' : 'Auth'
-
   return (
     <NavigationContainer theme={useTheme()}>
-      <Stack.Navigator initialRouteName="Splash">
-        <Stack.Screen
-          name="Splash"
-          component={Splash}
-          options={{ headerShown: false }}
-          initialParams={{ siguiente }}
-        />
-        <Stack.Screen name="Auth" component={Auth} />
-        <Stack.Screen name="Demo" component={Demo} />
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
+      <Stack.Navigator initialRouteName="Splash">{Pantallas}</Stack.Navigator>
     </NavigationContainer>
   )
 }

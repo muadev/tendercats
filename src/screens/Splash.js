@@ -3,14 +3,22 @@ import { View, Image, StyleSheet } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 
 import { useTheme } from 'context/Theme'
+import { useAuth } from 'context/User'
 import images from 'assets/images'
 
 const Splash = ({ navigation, route }) => {
   const { colors } = useTheme()
+  const { siguiente } = route.params
+  const { initializing } = useAuth()
+
+  // No se llama en el JSX mientras estamos initializing.
+  const onPress = () => {
+    navigation.replace(siguiente)
+  }
 
   return (
     <TouchableRipple
-      onPress={() => navigation.replace(route.params.siguiente)}
+      onPress={ initializing ? null : onPress }
       style={[styles.tocable, { backgroundColor: colors.gradientEnd }]}>
       <View style={styles.contenedor}>
         <Image style={styles.logo} source={images.isotipo} />
