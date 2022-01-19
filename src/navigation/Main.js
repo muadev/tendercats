@@ -20,7 +20,7 @@ import LectoEscritura from 'screens/LectoEscritura'
 const Stack = createNativeStackNavigator()
 
 const MainNavigation = () => {
-  const { user, initializing } = useAuth()
+  const { user } = useAuth()
 
   const Pantallas = user ? (
     <>
