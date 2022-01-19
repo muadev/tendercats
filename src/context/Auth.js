@@ -20,12 +20,14 @@ export const AuthProvider = ({ children }) => {
 
       // Si hubo cambio de estado de autenticación es que terminamos de
       // inicializar.
-      if (initializing) setInitializing(false)
+      // Este timeout está simulando un tiempo de inicialización más relevante
+      // que el microsegundo que le toma a firebase contestar.
+      if (initializing) setTimeout(() => setInitializing(false), 2500)
     }
 
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
     return subscriber
-  }, [initializing])
+  }, [])
 
   return (
     <AuthContext.Provider value={{ user, initializing }}>

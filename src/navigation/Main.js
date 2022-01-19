@@ -20,27 +20,33 @@ import LectoEscritura from 'screens/LectoEscritura'
 const Stack = createNativeStackNavigator()
 
 const MainNavigation = () => {
-  const { user } = useAuth()
+  const { user, initializing } = useAuth()
 
+  // Sólo mostramos el Splash si estamos inicializando.
+  if (initializing) {
+    return (
+      <NavigationContainer theme={useTheme()}>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Splash"
+            component={Splash}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    )
+  }
+
+  // Determinamos qué bloque de pantallas cargar según si tenemos une usuarie
+  // logueade o no ("protected routes"), por lo que los dos stacks nunca se ven
+  // entre sí (es importante para saber qué rutas existen en cada stack).
   const Pantallas = user ? (
     <>
-      <Stack.Screen
-        name="Splash"
-        component={Splash}
-        options={{ headerShown: false }}
-        initialParams={{ siguiente: 'LectoEscritura' }}
-      />
-      <Stack.Screen name="Demo" component={Demo} />
       <Stack.Screen name="LectoEscritura" component={LectoEscritura} />
+      <Stack.Screen name="Demo" component={Demo} />
     </>
   ) : (
     <>
-      <Stack.Screen
-        name="Splash"
-        component={Splash}
-        options={{ headerShown: false }}
-        initialParams={{ siguiente: 'Auth' }}
-      />
       <Stack.Screen name="Auth" component={Auth} />
       <Stack.Screen
         name="Login"
@@ -54,7 +60,7 @@ const MainNavigation = () => {
   // el deep linking y el botón de volver en Android.
   return (
     <NavigationContainer theme={useTheme()}>
-      <Stack.Navigator initialRouteName="Splash">{Pantallas}</Stack.Navigator>
+      <Stack.Navigator>{Pantallas}</Stack.Navigator>
     </NavigationContainer>
   )
 }
