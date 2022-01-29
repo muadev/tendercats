@@ -6,8 +6,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 // en `App.js`.
 import { useTheme } from 'context/Theme'
 
+// Para poder acceder al contexto de Usuario y armar la navegación.
+import { useAuth } from 'context/Auth'
+
 // Un componente por pantalla.
 import Splash from 'screens/Splash'
+import Auth from 'screens/Auth'
+import Login from 'screens/Login'
 import Demo from 'screens/Demo'
 import LectoEscritura from 'screens/LectoEscritura'
 
@@ -15,19 +20,48 @@ import LectoEscritura from 'screens/LectoEscritura'
 const Stack = createNativeStackNavigator()
 
 const MainNavigation = () => {
+  const { user, initializing } = useAuth()
+  const theme = useTheme()
+
+  // Sólo mostramos el Splash si estamos inicializando.
+  if (initializing) {
+    return (
+      <NavigationContainer theme={theme}>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Splash"
+            component={Splash}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    )
+  }
+
+  // Determinamos qué bloque de pantallas cargar según si tenemos une usuarie
+  // logueade o no ("protected routes"), por lo que los dos stacks nunca se ven
+  // entre sí (es importante para saber qué rutas existen en cada stack).
+  const Pantallas = user ? (
+    <>
+      <Stack.Screen name="LectoEscritura" component={LectoEscritura} />
+      <Stack.Screen name="Demo" component={Demo} />
+    </>
+  ) : (
+    <>
+      <Stack.Screen name="Auth" component={Auth} />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{ headerShown: false }}
+      />
+    </>
+  )
+
   // El contenedor maneja el estado de la navegación y se encarga de cosas como
   // el deep linking y el botón de volver en Android.
   return (
-    <NavigationContainer theme={useTheme()}>
-      <Stack.Navigator initialRouteName="Splash">
-        <Stack.Screen
-          name="Splash"
-          component={Splash}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="Demo" component={Demo} />
-        <Stack.Screen name="LectoEscritura" component={LectoEscritura} />
-      </Stack.Navigator>
+    <NavigationContainer theme={theme}>
+      <Stack.Navigator>{Pantallas}</Stack.Navigator>
     </NavigationContainer>
   )
 }
