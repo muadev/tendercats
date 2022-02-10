@@ -16,6 +16,7 @@ import Login from 'screens/Login'
 import Demo from 'screens/Demo'
 import LectoEscritura from 'screens/LectoEscritura'
 import SubirFoto from 'screens/SubirFoto'
+import Registro from 'screens/Registro'
 
 // Se inicializa el navegador y se le anidan las pantallas.
 const Stack = createNativeStackNavigator()
@@ -55,6 +56,11 @@ const MainNavigation = () => {
         name="Login"
         component={ Login }
         options={ { headerShown: false } }
+      />
+      <Stack.Screen
+        name="Registro"
+        component={Registro}
+        options={{ headerShown: false }}
       />
     </>
   )
