@@ -7,8 +7,8 @@ import { useDatabase } from 'context/Database'
 const Registro = ({ navigation }) => {
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
-  const [nombre, setNombre] = useState("")
-  const [bio, setBio] = useState("")
+  const [nombre, setNombre] = useState('')
+  const [bio, setBio] = useState('')
 
   const db = useDatabase()
 
@@ -52,7 +52,7 @@ const Registro = ({ navigation }) => {
         onPress={() => {
           auth()
             .createUserWithEmailAndPassword(email, password)
-            .then((respuesta) => {
+            .then(respuesta => {
               db.ref(`/usuaries/${respuesta.user.uid}`).set({
                 nombre: nombre,
                 bio: bio,
