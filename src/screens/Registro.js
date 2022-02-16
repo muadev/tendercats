@@ -20,36 +20,36 @@ const Registro = ({ navigation }) => {
       <TextInput
         placeholder="Ingresa tu mail.."
         keyboardType="email-address"
-        maxLength={64}
-        onChangeText={setEmail}
-        value={email}
+        maxLength={ 64 }
+        onChangeText={ setEmail }
+        value={ email }
       />
 
       <TextInput
         placeholder="Ingresa tu contraseña.."
-        secureTextEntry={true}
-        maxLength={64}
-        onChangeText={setPassword}
-        value={password}
+        secureTextEntry={ true }
+        maxLength={ 64 }
+        onChangeText={ setPassword }
+        value={ password }
       />
 
       <TextInput
         placeholder="Ingresa tu nombre.."
-        maxLength={64}
-        onChangeText={setNombre}
-        value={nombre}
+        maxLength={ 64 }
+        onChangeText={ setNombre }
+        value={ nombre }
       />
 
       <TextInput
         placeholder="Ingresa tu bio.."
         multiline
-        maxLength={100}
-        onChangeText={setBio}
-        value={bio}
+        maxLength={ 100 }
+        onChangeText={ setBio }
+        value={ bio }
       />
 
       <Button
-        onPress={() => {
+        onPress={ () => {
           auth()
             .createUserWithEmailAndPassword(email, password)
             .then(respuesta => {
@@ -66,7 +66,7 @@ const Registro = ({ navigation }) => {
             .catch(error => {
               console.error(error)
             })
-        }}>
+        } }>
         Registrate
       </Button>
     </View>

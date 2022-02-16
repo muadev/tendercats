@@ -59,8 +59,8 @@ const MainNavigation = () => {
       />
       <Stack.Screen
         name="Registro"
-        component={Registro}
-        options={{ headerShown: false }}
+        component={ Registro }
+        options={ { headerShown: false } }
       />
     </>
   )
