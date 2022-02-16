@@ -13,15 +13,16 @@ const SubirFoto = () => {
         skipBackup: true
       }
     }
-    launchImageLibrary(optionsPicker, response => {
-      if (response.didCancel)
-        {console.log('ImagePicker cancelado por usuarie.')}
-       else if (response.error)
-        {console.log('ImagePicker Error: ', response.error)}
-       else
-        // Response es un json con información de la imagen (filename, size, type, uri)
-        {setImageUri(response.assets[0].uri)}
 
+    launchImageLibrary(optionsPicker, response => {
+      if (response.didCancel) {
+        console.log('ImagePicker cancelado por usuarie.')
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error)
+      } else {
+        // Response es un json con información de la imagen (filename, size, type, uri)
+        setImageUri(response.assets[0].uri)
+      }
     })
   }
 
@@ -34,14 +35,15 @@ const SubirFoto = () => {
         // path: 'ABCD'
       }
     }
-    launchCamera(optionsCamera, response => {
-      if (response.didCancel)
-        {console.log('ImagePicker cancelado por usuarie.')}
-       else if (response.error)
-        {console.log('ImagePicker Error: ', response.error)}
-       else
-        {setImageUri(response.assets[0].uri)}
 
+    launchCamera(optionsCamera, response => {
+      if (response.didCancel) {
+        console.log('ImagePicker cancelado por usuarie.')
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error)
+      } else {
+        setImageUri(response.assets[0].uri)
+      }
     })
   }
 

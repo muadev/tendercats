@@ -22,7 +22,9 @@ export const AuthProvider = ({ children }) => {
       // inicializar.
       // Este timeout está simulando un tiempo de inicialización más relevante
       // que el microsegundo que le toma a firebase contestar.
-      if (initializing) {setTimeout(() => setInitializing(false), 2500)}
+      if (initializing) {
+        setTimeout(() => setInitializing(false), 2500)
+      }
     }
 
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
