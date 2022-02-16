@@ -13,6 +13,7 @@ const SubirFoto = () => {
         skipBackup: true
       }
     }
+
     launchImageLibrary(optionsPicker, response => {
       if (response.didCancel) {
         console.log('ImagePicker cancelado por usuarie.')
@@ -34,6 +35,7 @@ const SubirFoto = () => {
         // path: 'ABCD'
       }
     }
+
     launchCamera(optionsCamera, response => {
       if (response.didCancel) {
         console.log('ImagePicker cancelado por usuarie.')
@@ -47,18 +49,18 @@ const SubirFoto = () => {
 
   return (
     <View>
-      <Button title="Elegi una imagen existente" onPress={openPicker} />
-      <Button title="Abrir cámara" onPress={usarCamera} />
-      {imageUri === null ? (
+      <Button title="Elegi una imagen existente" onPress={ openPicker } />
+      <Button title="Abrir cámara" onPress={ usarCamera } />
+      { imageUri === null ? (
         /* Imagen genérica de assets si le usuarie no eligió/tomo imagen aún. */
         <Image
-          source={require('../assets/images/no-image.png')}
-          style={styles.images}
+          source={ require('../assets/images/no-image.png') }
+          style={ styles.images }
         />
       ) : (
         /* Imagen preexistente de Galería o tomada con la Cámara. */
-        <Image source={{ uri: imageUri }} style={styles.images} />
-      )}
+        <Image source={ { uri: imageUri } } style={ styles.images } />
+      ) }
     </View>
   )
 }

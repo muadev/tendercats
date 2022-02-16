@@ -1,10 +1,10 @@
-name: Fix prettier & eslint
+name: Fix code with prettier & eslint
 
 # Se ejecuta cada vez que se hace push al repo
 on: push
 
 jobs:
-  # nuclea a prettier & eslint
+  # Nuclea a prettier & eslint
   fix-code:
     runs-on: ubuntu-latest
 
@@ -22,12 +22,15 @@ jobs:
       - name: Install modules npm
         run: npm install
 
-      - name: Fix prettier
-        uses: creyD/prettier_action@v3.3
-        with:
-          # By default excludes node_modules.
-          # --loglevel debug shows files changed.
-          prettier_options: --write **/*.{js,md}
+      - name: Run prettier
+        run: npm run prettify --
 
-      - name: Fix eslint
+      - name: Run eslint
         run: npm run lint -- --fix
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          # Genera un commit de fixup para autosquashear fácilmente al
+          # rebasear.
+          commit_options: --fixup=HEAD

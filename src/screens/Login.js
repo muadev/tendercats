@@ -15,21 +15,21 @@ const Login = ({ navigation }) => {
       <TextInput
         placeholder="Ingresa tu mail.."
         keyboardType="email-address"
-        maxLength={64}
-        onChangeText={onChangeMail}
-        value={mail}
+        maxLength={ 64 }
+        onChangeText={ onChangeMail }
+        value={ mail }
       />
 
       <TextInput
         placeholder="Ingresa tu contraseña.."
-        secureTextEntry={true}
-        maxLength={64}
-        onChangeText={onChangePassword}
-        value={password}
+        secureTextEntry={ true }
+        maxLength={ 64 }
+        onChangeText={ onChangePassword }
+        value={ password }
       />
 
       <Button
-        onPress={() => {
+        onPress={ () => {
           auth()
             .signInWithEmailAndPassword(mail, password)
             .then(() => {
@@ -41,7 +41,7 @@ const Login = ({ navigation }) => {
             .catch(error => {
               console.error(error)
             })
-        }}>
+        } }>
         Logueate
       </Button>
     </View>

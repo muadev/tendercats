@@ -10,8 +10,8 @@ export const DatabaseContext = createContext()
 // Exportamos el proveedor de contexto.
 export const DatabaseProvider = ({ children }) => {
   return (
-    <DatabaseContext.Provider value={database()}>
-      {children}
+    <DatabaseContext.Provider value={ database() }>
+      { children }
     </DatabaseContext.Provider>
   )
 }
