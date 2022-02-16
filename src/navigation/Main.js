@@ -26,7 +26,7 @@ const MainNavigation = () => {
 
   // Sólo mostramos el Splash si estamos inicializando.
   if (initializing)
-    return (
+    {return (
       <NavigationContainer theme={ theme }>
         <Stack.Navigator>
           <Stack.Screen
@@ -36,7 +36,7 @@ const MainNavigation = () => {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    )
+    )}
 
 
   // Determinamos qué bloque de pantallas cargar según si tenemos une usuarie
