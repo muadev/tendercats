@@ -14,7 +14,7 @@ module.exports = {
       1,
       { when: 'always', children: { when: 'always' } }
     ],
-    // Forzar llaves alrededor de bloques cuando necesiten más de una línea.
-    curly: [1, 'multi']
+    // Siempre forzar llaves alrededor de bloques.
+    curly: [1, 'all']
   }
 }
