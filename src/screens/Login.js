@@ -5,7 +5,7 @@ import auth from '@react-native-firebase/auth'
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState(null)
-  const [password, serPassword] = useState(null)
+  const [password, setPassword] = useState(null)
 
   // TODO, Hacer los inputs `required`.
   return (
