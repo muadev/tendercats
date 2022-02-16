@@ -14,14 +14,14 @@ const SubirFoto = () => {
       }
     }
     launchImageLibrary(optionsPicker, response => {
-      if (response.didCancel) {
+      if (response.didCancel)
         console.log('ImagePicker cancelado por usuarie.')
-      } else if (response.error) {
+       else if (response.error)
         console.log('ImagePicker Error: ', response.error)
-      } else {
+       else
         // Response es un json con información de la imagen (filename, size, type, uri)
         setImageUri(response.assets[0].uri)
-      }
+
     })
   }
 
@@ -35,13 +35,13 @@ const SubirFoto = () => {
       }
     }
     launchCamera(optionsCamera, response => {
-      if (response.didCancel) {
+      if (response.didCancel)
         console.log('ImagePicker cancelado por usuarie.')
-      } else if (response.error) {
+       else if (response.error)
         console.log('ImagePicker Error: ', response.error)
-      } else {
+       else
         setImageUri(response.assets[0].uri)
-      }
+
     })
   }
 

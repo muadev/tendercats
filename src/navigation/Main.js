@@ -25,7 +25,7 @@ const MainNavigation = () => {
   const theme = useTheme()
 
   // Sólo mostramos el Splash si estamos inicializando.
-  if (initializing) {
+  if (initializing)
     return (
       <NavigationContainer theme={ theme }>
         <Stack.Navigator>
@@ -37,7 +37,7 @@ const MainNavigation = () => {
         </Stack.Navigator>
       </NavigationContainer>
     )
-  }
+
 
   // Determinamos qué bloque de pantallas cargar según si tenemos une usuarie
   // logueade o no ("protected routes"), por lo que los dos stacks nunca se ven
