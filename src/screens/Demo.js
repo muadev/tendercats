@@ -33,9 +33,9 @@ import { useGatite } from 'context/Database'
 
 const Section = ({ children, title }): Node => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text style={[styles.sectionTitle]}>{title}</Text>
-      <Text style={[styles.sectionDescription]}>{children}</Text>
+    <View style={ styles.sectionContainer }>
+      <Text style={ [styles.sectionTitle] }>{ title }</Text>
+      <Text style={ [styles.sectionDescription] }>{ children }</Text>
     </View>
   )
 }
@@ -54,19 +54,19 @@ const App: () => Node = ({ navigation }) => {
   })
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+    <SafeAreaView style={ backgroundStyle }>
+      <StatusBar barStyle={ isDarkMode ? 'light-content' : 'dark-content' } />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
+        style={ backgroundStyle }>
         <Header />
         <View
-          style={{
+          style={ {
             backgroundColor: isDarkMode ? Colors.black : Colors.white
-          }}>
+          } }>
           <Button
             title="Deslogueame"
-            onPress={() =>
+            onPress={ () =>
               auth().signOut().then(
                 // Igual que en Login, no hay que navegar manualmente porque las
                 // pantallas se rerenderizan sin user después de desloguearnos.
@@ -76,12 +76,12 @@ const App: () => Node = ({ navigation }) => {
           />
 
           <Section title="TenderCats">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
+            Edit <Text style={ styles.highlight }>App.js</Text> to change this
             screen and then come back to see your edits.
           </Section>
-          <Section title="Theme">{useTheme().name}</Section>
+          <Section title="Theme">{ useTheme().name }</Section>
           <Section title="Prueba de conexión a DB">
-            <Text style={styles.highlight}>{gato}</Text>
+            <Text style={ styles.highlight }>{ gato }</Text>
           </Section>
           <Section title="See Your Changes">
             <ReloadInstructions />

@@ -5,7 +5,7 @@ import { Button } from 'react-native-paper'
 const Auth = ({ navigation }) => {
   return (
     <View>
-      <Button onPress={() => navigation.navigate('Login')}>Login</Button>
+      <Button onPress={ () => navigation.navigate('Login') }>Login</Button>
       <Button>Registrase</Button>
     </View>
   )

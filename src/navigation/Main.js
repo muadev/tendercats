@@ -27,12 +27,12 @@ const MainNavigation = () => {
   // Sólo mostramos el Splash si estamos inicializando.
   if (initializing) {
     return (
-      <NavigationContainer theme={theme}>
+      <NavigationContainer theme={ theme }>
         <Stack.Navigator>
           <Stack.Screen
             name="Splash"
-            component={Splash}
-            options={{ headerShown: false }}
+            component={ Splash }
+            options={ { headerShown: false } }
           />
         </Stack.Navigator>
       </NavigationContainer>
@@ -44,17 +44,17 @@ const MainNavigation = () => {
   // entre sí (es importante para saber qué rutas existen en cada stack).
   const Pantallas = user ? (
     <>
-      <Stack.Screen name="LectoEscritura" component={LectoEscritura} />
-      <Stack.Screen name="Demo" component={Demo} />
-      <Stack.Screen name="SubirFoto" component={SubirFoto} />
+      <Stack.Screen name="LectoEscritura" component={ LectoEscritura } />
+      <Stack.Screen name="Demo" component={ Demo } />
+      <Stack.Screen name="SubirFoto" component={ SubirFoto } />
     </>
   ) : (
     <>
-      <Stack.Screen name="Auth" component={Auth} />
+      <Stack.Screen name="Auth" component={ Auth } />
       <Stack.Screen
         name="Login"
-        component={Login}
-        options={{ headerShown: false }}
+        component={ Login }
+        options={ { headerShown: false } }
       />
     </>
   )
@@ -62,8 +62,8 @@ const MainNavigation = () => {
   // El contenedor maneja el estado de la navegación y se encarga de cosas como
   // el deep linking y el botón de volver en Android.
   return (
-    <NavigationContainer theme={theme}>
-      <Stack.Navigator>{Pantallas}</Stack.Navigator>
+    <NavigationContainer theme={ theme }>
+      <Stack.Navigator>{ Pantallas }</Stack.Navigator>
     </NavigationContainer>
   )
 }

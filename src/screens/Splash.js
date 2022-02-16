@@ -8,9 +8,9 @@ const Splash = () => {
   const { colors } = useTheme()
 
   return (
-    <View style={[styles.tocable, { backgroundColor: colors.gradientEnd }]}>
-      <View style={styles.contenedor}>
-        <Image style={styles.logo} source={images.isotipo} />
+    <View style={ [styles.tocable, { backgroundColor: colors.gradientEnd }] }>
+      <View style={ styles.contenedor }>
+        <Image style={ styles.logo } source={ images.isotipo } />
       </View>
     </View>
   )

@@ -12,7 +12,7 @@ const App = () => {
     <AuthProvider>
       <DatabaseProvider>
         <ThemeProvider>
-          {/* El contenedor de navegación que gestiona las diferentes pantallas. */}
+          { /* El contenedor de navegación que gestiona las diferentes pantallas. */ }
           <MainNavigation />
         </ThemeProvider>
       </DatabaseProvider>

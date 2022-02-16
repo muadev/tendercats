@@ -10,7 +10,7 @@ const LectoEscritura = ({ navigation }) => {
   useEffect(() => {
     // TODO, extraer referencia desde el componente a un archivo de queries.
     // Cambiamos de .on a .once para leer una sola vez la DB hasta que hagamos un update.
-    db.ref(`gatites/0`).once('value', snapshot => {
+    db.ref('gatites/0').once('value', snapshot => {
       // Los signos de pregunta habilitan a que cualquier intermediario sea null.
       setGato(snapshot?.val()?.nombre)
     })
@@ -25,25 +25,25 @@ const LectoEscritura = ({ navigation }) => {
 
   return (
     <View>
-      {/* Usamos defaultValue para que se inicialice el elemento con el valor default mientras busca el de la DB. Si es null aparece el placeholder. */}
+      { /* Usamos defaultValue para que se inicialice el elemento con el valor default mientras busca el de la DB. Si es null aparece el placeholder. */ }
       <TextInput
-        style={{ height: 40 }}
+        style={ { height: 40 } }
         placeholder="Ingresa un valor para Gato"
-        onSubmitEditing={event => update(0, event.nativeEvent.text)}
-        defaultValue={gato}
+        onSubmitEditing={ event => update(0, event.nativeEvent.text) }
+        defaultValue={ gato }
       />
 
-      <Text>{gato}</Text>
+      <Text>{ gato }</Text>
 
       <Button
         title="Volver a Demo"
-        onPress={() => navigation.navigate('Demo')}
+        onPress={ () => navigation.navigate('Demo') }
       />
       <Button
         title="Subir una imagen"
-        onPress={() => navigation.navigate('SubirFoto')}
+        onPress={ () => navigation.navigate('SubirFoto') }
       />
-      <Button title="Go Back" onPress={() => navigation.goBack} />
+      <Button title="Go Back" onPress={ () => navigation.goBack } />
     </View>
   )
 }
