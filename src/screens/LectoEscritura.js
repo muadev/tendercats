@@ -36,8 +36,8 @@ const LectoEscritura = ({ navigation }) => {
       <Text>{ gato }</Text>
 
       <Button
-        title="Volver a Demo"
-        onPress={ () => navigation.navigate('Demo') }
+        title="Ir a Perfil"
+        onPress={ () => navigation.navigate('Perfil') }
       />
       <Button
         title="Subir una imagen"

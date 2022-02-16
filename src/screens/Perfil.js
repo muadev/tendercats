@@ -1,0 +1,48 @@
+import React, { useState, useEffect } from 'react'
+import auth from '@react-native-firebase/auth'
+import { Text, Button } from 'react-native-paper'
+import { View } from 'react-native'
+import { useDatabase } from 'context/Database'
+import { useAuth } from 'context/Auth'
+
+const Perfil = () =>{
+  const [nombre, setNombre] = useState('Buscando')
+  const [email, setEmail] = useState('Buscando')
+  const [bio, setBio] = useState('Buscando')
+  
+  const db = useDatabase()
+  const usuarie = useAuth().user
+
+  useEffect(() => {
+    db.ref(`usuaries/${usuarie.uid}`).on('value', snapshot => {
+      // Los signos de pregunta habilitan a que cualquier intermediario sea null.
+      const respuesta = snapshot?.val()
+
+      setNombre(respuesta?.nombre)
+      setEmail(respuesta?.email)
+      setBio(respuesta?.bio)
+    })
+  }, [])
+
+  return (
+
+    <View>
+      <Button
+        onPress={ () =>
+          auth().signOut().then(
+            // Igual que en Login, no hay que navegar manualmente porque las
+            // pantallas se rerenderizan sin user después de desloguearnos.
+            console.log('Deslogueadx!')
+          )
+        }>
+          Deslogueame
+      </Button>
+      
+      <Text>{ nombre }</Text>
+      <Text>{ email }</Text>
+      <Text>{ bio }</Text>
+    </View>
+  )
+}
+
+export default Perfil
