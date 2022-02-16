@@ -31,4 +31,6 @@ jobs:
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Estilo de código unificado
+          # Genera un commit de fixup para autosquashear fácilmente al
+          # rebasear.
+          commit_options: --fixup=HEAD
