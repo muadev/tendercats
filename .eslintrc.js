@@ -13,6 +13,8 @@ module.exports = {
     'react/jsx-curly-spacing': [
       1,
       { when: 'always', children: { when: 'always' } }
-    ]
+    ],
+    // Forzar llaves alrededor de bloques cuando necesiten más de una línea.
+    curly: [1, 'multi']
   }
 }
