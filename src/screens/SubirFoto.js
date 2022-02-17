@@ -55,7 +55,7 @@ const SubirFoto = () => {
     <View>
       <Button onPress={ async() => {
         await reference.putFile(imageUri)
-      }}
+      } }
         title="Guardar"
       />
       <Button title="Elegi una imagen existente" onPress={ openPicker } />
