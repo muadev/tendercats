@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Text, TextInput, View, Button } from 'react-native'
-import { DatabaseContext } from 'context/Database'
+import { useDatabase } from 'context/Database'
+import { useAuth } from 'context/Auth'
 
 const LectoEscritura = ({ navigation }) => {
   const [gato, setGato] = useState('Buscando gati..')
   // Hay que pedir el contexto dentro del componente y no en useEffect().
-  const db = useContext(DatabaseContext)
+  const db = useDatabase()
+  const { uid } = useAuth().user
 
   useEffect(() => {
     // TODO, extraer referencia desde el componente a un archivo de queries.
@@ -36,8 +38,8 @@ const LectoEscritura = ({ navigation }) => {
       <Text>{ gato }</Text>
 
       <Button
-        title="Volver a Demo"
-        onPress={ () => navigation.navigate('Demo') }
+        title="Ir a Perfil"
+        onPress={ () => navigation.navigate('Perfil', { uid: uid }) }
       />
       <Button
         title="Subir una imagen"

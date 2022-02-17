@@ -13,9 +13,10 @@ import { useAuth } from 'context/Auth'
 import Splash from 'screens/Splash'
 import Auth from 'screens/Auth'
 import Login from 'screens/Login'
-import Demo from 'screens/Demo'
+import Perfil from 'screens/Perfil'
 import LectoEscritura from 'screens/LectoEscritura'
 import SubirFoto from 'screens/SubirFoto'
+import Registro from 'screens/Registro'
 
 // Se inicializa el navegador y se le anidan las pantallas.
 const Stack = createNativeStackNavigator()
@@ -45,7 +46,7 @@ const MainNavigation = () => {
   const Pantallas = user ? (
     <>
       <Stack.Screen name="LectoEscritura" component={ LectoEscritura } />
-      <Stack.Screen name="Demo" component={ Demo } />
+      <Stack.Screen name="Perfil" component={ Perfil } />
       <Stack.Screen name="SubirFoto" component={ SubirFoto } />
     </>
   ) : (
@@ -54,6 +55,11 @@ const MainNavigation = () => {
       <Stack.Screen
         name="Login"
         component={ Login }
+        options={ { headerShown: false } }
+      />
+      <Stack.Screen
+        name="Registro"
+        component={ Registro }
         options={ { headerShown: false } }
       />
     </>

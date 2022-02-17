@@ -6,7 +6,9 @@ const Auth = ({ navigation }) => {
   return (
     <View>
       <Button onPress={ () => navigation.navigate('Login') }>Login</Button>
-      <Button>Registrase</Button>
+      <Button onPress={ () => navigation.navigate('Registro') }>
+        Registrarse
+      </Button>
     </View>
   )
 }
