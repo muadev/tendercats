@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Text, TextInput, View, Button } from 'react-native'
 import { DatabaseContext } from 'context/Database'
+import { useAuth } from 'context/Auth'
 
 const LectoEscritura = ({ navigation }) => {
   const [gato, setGato] = useState('Buscando gati..')
@@ -23,6 +24,8 @@ const LectoEscritura = ({ navigation }) => {
     setGato(text)
   }
 
+  const { uid } = useAuth().user
+
   return (
     <View>
       { /* Usamos defaultValue para que se inicialice el elemento con el valor default mientras busca el de la DB. Si es null aparece el placeholder. */ }
@@ -37,7 +40,7 @@ const LectoEscritura = ({ navigation }) => {
 
       <Button
         title="Ir a Perfil"
-        onPress={ () => navigation.navigate('Perfil') }
+        onPress={ () => navigation.navigate('Perfil', { uid: uid }) }
       />
       <Button
         title="Subir una imagen"

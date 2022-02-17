@@ -3,9 +3,8 @@ import auth from '@react-native-firebase/auth'
 import { Text, Button } from 'react-native-paper'
 import { View } from 'react-native'
 import { useDatabase } from 'context/Database'
-import { useAuth } from 'context/Auth'
 
-const Perfil = () =>{
+const Perfil = ({route}) =>{
   const [nombre, setNombre] = useState('Buscando')
   const [email, setEmail] = useState('Buscando')
   const [bio, setBio] = useState('Buscando')
@@ -13,10 +12,10 @@ const Perfil = () =>{
   const [alerta, setAlerta] = useState('')
 
   const db = useDatabase()
-  const usuarie = useAuth().user
+  const { uid } = route.params
 
   useEffect(() => {
-    db.ref(`usuaries/${usuarie.uid}`).once('value', snapshot => {
+    db.ref(`usuaries/${uid}`).once('value', snapshot => {
       // Los signos de pregunta habilitan a que cualquier intermediario sea null.
       const respuesta = snapshot?.val()
 
@@ -27,7 +26,7 @@ const Perfil = () =>{
       setAlerta(error.message)
       console.log(error.message)
     })
-  }, [db, usuarie])
+  }, [db, uid])
 
   return (
 
