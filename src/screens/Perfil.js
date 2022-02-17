@@ -9,18 +9,23 @@ const Perfil = () =>{
   const [nombre, setNombre] = useState('Buscando')
   const [email, setEmail] = useState('Buscando')
   const [bio, setBio] = useState('Buscando')
+  //TODO, en algún momento este estado debe pasar a ser un toast unificado para la app.
+  const [alerta, setAlerta] = useState('')
   
   const db = useDatabase()
   const usuarie = useAuth().user
 
   useEffect(() => {
-    db.ref(`usuaries/${usuarie.uid}`).on('value', snapshot => {
+    db.ref(`usuaries/${usuarie.uid}`).once('value', snapshot => {
       // Los signos de pregunta habilitan a que cualquier intermediario sea null.
       const respuesta = snapshot?.val()
 
       setNombre(respuesta?.nombre)
       setEmail(respuesta?.email)
       setBio(respuesta?.bio)
+    }).catch((error)=> {
+      setAlerta(error.message)
+      console.log(error.message)
     })
   }, [])
 
@@ -41,6 +46,7 @@ const Perfil = () =>{
       <Text>{ nombre }</Text>
       <Text>{ email }</Text>
       <Text>{ bio }</Text>
+      <Text>{ alerta }</Text>
     </View>
   )
 }
