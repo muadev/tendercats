@@ -11,10 +11,10 @@ const Perfil = () =>{
   const [bio, setBio] = useState('Buscando')
   //TODO, en algún momento este estado debe pasar a ser un toast unificado para la app.
   const [alerta, setAlerta] = useState('')
- 
+
   const db = useDatabase()
   const usuarie = useAuth().user
- 
+
   useEffect(() => {
     db.ref(`usuaries/${usuarie.uid}`).once('value', snapshot => {
       // Los signos de pregunta habilitan a que cualquier intermediario sea null.
@@ -42,7 +42,7 @@ const Perfil = () =>{
         }>
           Deslogueame
       </Button>
-      
+
       <Text>{ nombre }</Text>
       <Text>{ email }</Text>
       <Text>{ bio }</Text>
