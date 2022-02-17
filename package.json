@@ -11,9 +11,10 @@
     "prettify": "prettier --write 'src/*.js'"
   },
   "dependencies": {
-    "@react-native-firebase/app": "^14.1.0",
-    "@react-native-firebase/auth": "^14.1.0",
-    "@react-native-firebase/database": "^14.1.0",
+    "@react-native-firebase/app": "^14.5.0",
+    "@react-native-firebase/auth": "^14.5.0",
+    "@react-native-firebase/database": "^14.5.0",
+    "@react-native-firebase/storage": "^14.5.0",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "react": "17.0.2",
