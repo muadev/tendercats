@@ -2,8 +2,12 @@ import React from 'react'
 import { Button, View, Image, StyleSheet } from 'react-native'
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker'
 
+import storage from '@react-native-firebase/storage'
+
 const SubirFoto = () => {
   const [imageUri, setImageUri] = React.useState(null)
+
+  const reference = storage().ref('black-t-shirt-sm.png')
 
   // Despliega el selector de imagenes.
   const openPicker = () => {
@@ -49,6 +53,11 @@ const SubirFoto = () => {
 
   return (
     <View>
+      <Button onPress={ async() => {
+        await reference.putFile(imageUri)
+      }}
+        title="Guardar"
+      />
       <Button title="Elegi una imagen existente" onPress={ openPicker } />
       <Button title="Abrir cámara" onPress={ usarCamera } />
       { imageUri === null ? (
