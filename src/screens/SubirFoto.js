@@ -67,15 +67,15 @@ const SubirFoto = () => {
       reference.getDownloadURL().then((url) => {
           console.log(url)
 
-          const gatite = db.ref("gatites").push( {
+          const gatite = db.ref('gatites').push( {
             // TODO que consuma el nombre del gato y no null
             nombre: gato,
-            usuarie: "to be defined",
+            usuarie: 'to be defined',
             follows: 0
           })
 
-          gatite.child("fotos").push(url).then( (foto) => {
-            db.ref(`fotos/${foto.key}`).set({ 
+          gatite.child('fotos').push(url).then( (foto) => {
+            db.ref(`fotos/${foto.key}`).set({
               gatite: gatite.key})
             })
           })
