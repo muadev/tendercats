@@ -86,22 +86,22 @@ const SubirFoto = () => {
 
   return (
     <View>
-      <Button onPress={subirFoto} title="Guardar" />
-      <Button title="Elegi una imagen existente" onPress={openPicker} />
-      <Button title="Abrir cámara" onPress={usarCamera} />
+      <Button onPress={ subirFoto } title="Guardar" />
+      <Button title="Elegi una imagen existente" onPress={ openPicker } />
+      <Button title="Abrir cámara" onPress={ usarCamera } />
       <TextInput
-        style={{ height: 40 }}
+        style={ { height: 40 } }
         placeholder="Ingresa un valor para Gato"
-        onChangeText={nombre => setGato(nombre)}
+        onChangeText={ nombre => setGato(nombre) }
       />
 
-      {imageUri === null ? (
+      { imageUri === null ? (
         /* Imagen genérica de assets si le usuarie no eligió/tomo imagen aún. */
-        <Image source={require('../assets/images/no-image.png')} style={styles.images} />
+        <Image source={ require('../assets/images/no-image.png') } style={ styles.images } />
       ) : (
         /* Imagen preexistente de Galería o tomada con la Cámara. */
-        <Image source={{ uri: imageUri }} style={styles.images} />
-      )}
+        <Image source={ { uri: imageUri } } style={ styles.images } />
+      ) }
     </View>
   )
 }
