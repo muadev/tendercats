@@ -64,47 +64,44 @@ const SubirFoto = () => {
   const subirFoto = async () => {
     const reference = storage().ref(`/usuaries/${user.uid}/${imageNombre}`)
     reference.putFile(imageUri).then(() => {
-      reference.getDownloadURL().then((url) => {
-          console.log(url)
+      reference.getDownloadURL().then(url => {
+        const gatite = db.ref('gatites').push({
+          // TODO que consuma el nombre del gato y no null
+          nombre: gato,
+          usuarie: 'to be defined',
+          follows: 0
+        })
 
-          const gatite = db.ref('gatites').push( {
-            // TODO que consuma el nombre del gato y no null
-            nombre: gato,
-            usuarie: 'to be defined',
-            follows: 0
-          })
-
-          gatite.child('fotos').push(url).then( (foto) => {
+        gatite
+          .child('fotos')
+          .push(url)
+          .then(foto => {
             db.ref(`fotos/${foto.key}`).set({
-              gatite: gatite.key})
+              gatite: gatite.key
             })
           })
+      })
     })
   }
 
   return (
     <View>
-      <Button onPress={ subirFoto }
-        title="Guardar"
-      />
-      <Button title="Elegi una imagen existente" onPress={ openPicker } />
-      <Button title="Abrir cámara" onPress={ usarCamera } />
+      <Button onPress={subirFoto} title="Guardar" />
+      <Button title="Elegi una imagen existente" onPress={openPicker} />
+      <Button title="Abrir cámara" onPress={usarCamera} />
       <TextInput
-        style={ { height: 40 } }
+        style={{ height: 40 }}
         placeholder="Ingresa un valor para Gato"
-        onSubmitEditing={ event => setGato(event.nativeEvent.text) }
+        onChangeText={nombre => setGato(nombre)}
       />
 
-      { imageUri === null ? (
+      {imageUri === null ? (
         /* Imagen genérica de assets si le usuarie no eligió/tomo imagen aún. */
-        <Image
-          source={ require('../assets/images/no-image.png') }
-          style={ styles.images }
-        />
+        <Image source={require('../assets/images/no-image.png')} style={styles.images} />
       ) : (
         /* Imagen preexistente de Galería o tomada con la Cámara. */
-        <Image source={ { uri: imageUri } } style={ styles.images } />
-      ) }
+        <Image source={{ uri: imageUri }} style={styles.images} />
+      )}
     </View>
   )
 }
