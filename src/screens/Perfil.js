@@ -4,7 +4,7 @@ import { Text, Button } from 'react-native-paper'
 import { View } from 'react-native'
 import { useDatabase } from 'context/Database'
 
-const Perfil = ({route}) =>{
+const Perfil = ({ route }) =>{
   const [nombre, setNombre] = useState('Buscando')
   const [email, setEmail] = useState('Buscando')
   const [bio, setBio] = useState('Buscando')
