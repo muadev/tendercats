@@ -68,7 +68,7 @@ const SubirFoto = () => {
         const gatite = db.ref('gatites').push({
           // TODO que consuma el nombre del gato y no null
           nombre: gato,
-          usuarie: 'to be defined',
+          usuarie: user.uid,
           follows: 0
         })
 
