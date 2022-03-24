@@ -1,7 +1,7 @@
-// Mock de las funciones que llamamos sobre `database()`, y lo que esperamos
+// Mock de las funciones que llamamos sobre `storage()`, y lo que esperamos
 // que nos devuelva cada una.
 
-// database().ref(...)
+// storage().ref(...)
 const ref = jest.fn(() => ({
   on: jest.fn()
 }))
