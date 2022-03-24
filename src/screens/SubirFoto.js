@@ -22,7 +22,7 @@ const SubirFoto = () => {
       let seleccionadas = []
       images.map(image => {
         let uri = image.path
-        let fileName = uri.substring(uri.lastIndexOf("/") + 1, uri.length)
+        let fileName = new Date().getTime() + "-" + uri.substring(uri.lastIndexOf("/") + 1, uri.length)
 
         seleccionadas = [...seleccionadas, { "uri": uri, "fileName": fileName} ]
       })
