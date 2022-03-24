@@ -1,11 +1,11 @@
-name: Fix code with prettier & eslint
+name: Normalizar y testear código
 
 # Se ejecuta cada vez que se hace push al repo
 on: push
 
 jobs:
-  # Nuclea a prettier & eslint
-  fix-code:
+  # Un job que nuclea a prettier & eslint y corre los tests.
+  ci:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,10 +23,13 @@ jobs:
         run: npm install
 
       - name: Run prettier
-        run: npm run prettify --
+        run: npm run prettify
 
       - name: Run eslint
         run: npm run lint -- --fix
+
+      - name: Run tests
+        run: npm run test
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
