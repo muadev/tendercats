@@ -20,18 +20,18 @@ const SubirFoto = () => {
       cropping: true
     }).then(images => {
       let seleccionadas = []
-      for ( const image of images) {
+      images.map(image => {
         let uri = image.path
         let fileName = uri.substring(uri.lastIndexOf("/") + 1, uri.length)
 
         seleccionadas = [...seleccionadas, { "uri": uri, "fileName": fileName} ]
-      }
+      })
       setImagenes(seleccionadas)
     })
   }
 
   const subirFoto = async () => {
-    for (const image of imagenes) {
+    imagenes.map(image => {
       const reference = storage().ref(`/usuaries/${user.uid}/${image.fileName}`)
       reference.putFile(image.uri).then(() => {
         reference.getDownloadURL().then(url => {
@@ -51,7 +51,7 @@ const SubirFoto = () => {
             })
         })
       })
-    }
+    })
   }
 
   return (
@@ -70,7 +70,11 @@ const SubirFoto = () => {
         <Image source={ require('../assets/images/no-image.png') } style={ styles.images } />
       ) : (
         /* Imagen preexistente de Galería o tomada con la Cámara. */
-        <Image source={ { uri: imagenes[0].uri } } style={ styles.images } />
+        imagenes.map( (imagen, index) => {
+          return (
+            <Image key={index} source={ { uri: imagen.uri } } style={ styles.images } />
+          )}
+        )
       ) }
     </View>
   )
