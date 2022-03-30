@@ -7,11 +7,17 @@ import { useDatabase } from 'context/Database'
 import storage from '@react-native-firebase/storage'
 
 const SubirFoto = () => {
+  // Array de {uri, filename}
   const [imagenes, setImagenes] = useState([])
   const [gato, setGato] = useState(null)
 
   const { user } = useAuth()
   const db = useDatabase()
+
+  // Procesa la uri de la imagen para tomar nombre y extensión y le apenda un timestamp.
+  const filenameConTimestamp = uri => {
+    new Date().getTime() + '-' + uri.substring(uri.lastIndexOf('/') + 1, uri.length)
+  }
 
   // Esperando mergeo de issue #1243 de react-native-image-crop-picker para funcionalidad combinada de multiple y cropping.
   const seleccionar = () => {
@@ -23,14 +29,11 @@ const SubirFoto = () => {
         let seleccionadas = []
         images.map(image => {
           let uri = image.path
-          let fileName =
-            new Date().getTime() + '-' + uri.substring(uri.lastIndexOf('/') + 1, uri.length)
-
-          seleccionadas = [...seleccionadas, { uri: uri, fileName: fileName }]
+          seleccionadas = [...seleccionadas, { uri: uri, filename: filenameConTimestamp(uri) }]
         })
         setImagenes(seleccionadas)
       })
-      //TO-DO Desglosar por error de usr canceló seleccion o no otorgó permisos de STORAGE.
+      // TO-DO Desglosar por error de usr canceló seleccion o no otorgó permisos de STORAGE.
       .catch(error => {
         console.error(error)
       })
@@ -38,15 +41,11 @@ const SubirFoto = () => {
 
   const tomarFoto = () => {
     ImagePicker.openCamera({
-      width: 300,
-      height: 400,
       cropping: true
     })
       .then(image => {
         let uri = image.path
-        let fileName =
-          new Date().getTime() + '-' + uri.substring(uri.lastIndexOf('/') + 1, uri.length)
-        setImagenes([{ uri: uri, fileName: fileName }])
+        setImagenes([{ uri: uri, filename: filenameConTimestamp(uri) }])
       })
       //TO-DO Desglosar por error de usr canceló seleccion o no otorgó permisos de STORAGE.
       .catch(error => {
@@ -56,47 +55,59 @@ const SubirFoto = () => {
 
   const subirFoto = async () => {
     imagenes.map(image => {
-      const reference = storage().ref(`/usuaries/${user.uid}/${image.fileName}`)
-      reference.putFile(image.uri).then(() => {
-        reference.getDownloadURL().then(url => {
-          const gatite = db.ref('gatites').push({
-            nombre: gato,
-            usuarie: user.uid,
-            follows: 0
-          })
-
-          gatite
-            .child('fotos')
-            .push(url)
-            .then(foto => {
-              db.ref(`fotos/${foto.key}`).set({
-                gatite: gatite.key
+      const reference = storage().ref(`/usuaries/${user.uid}/${image.filename}`)
+      reference
+        .putFile(image.uri)
+        .then(() => {
+          reference
+            .getDownloadURL()
+            .then(url => {
+              const gatite = db.ref('gatites').push({
+                nombre: gato,
+                usuarie: user.uid,
+                follows: 0
               })
+              gatite
+                .child('fotos')
+                .push(url)
+                .then(foto => {
+                  db.ref(`fotos/${foto.key}`).set({
+                    gatite: gatite.key
+                  })
+                })
+                .catch(error => {
+                  console.log(error)
+                })
+            })
+            .catch(error => {
+              console.log(error)
             })
         })
-      })
+        .catch(error => {
+          console.log(error)
+        })
     })
   }
 
   return (
     <View>
-      <Button onPress={ subirFoto } title={ `Guardar ${imagenes.length}` } />
-      <Button title="Elegi una imagen existente" onPress={ seleccionar } />
-      <Button title="Abrir cámara" onPress={ tomarFoto } />
+      <Button onPress={subirFoto} title={`Guardar ${imagenes.length}`} />
+      <Button title="Elegi una imagen existente" onPress={seleccionar} />
+      <Button title="Abrir cámara" onPress={tomarFoto} />
       <TextInput
         placeholder="Ingresa un valor para Gato"
-        onChangeText={ nombre => setGato(nombre) }
+        onChangeText={nombre => setGato(nombre)}
       />
 
-      { imagenes.length === 0 ? (
+      {imagenes.length === 0 ? (
         /* Imagen genérica de assets si le usuarie no eligió/tomo imagen aún. */
-        <Image source={ require('../assets/images/no-image.png') } style={ styles.images } />
+        <Image source={require('../assets/images/no-image.png')} style={styles.images} />
       ) : (
         /* Imagen preexistente de Galería o tomada con la Cámara. */
         imagenes.map((imagen, index) => {
-          return <Image key={ index } source={ { uri: imagen.uri } } style={ styles.images } />
+          return <Image key={index} source={{ uri: imagen.uri }} style={styles.images} />
         })
-      ) }
+      )}
     </View>
   )
 }
