@@ -1,105 +1,112 @@
 import React, { useState } from 'react'
 import { Button, View, Image, StyleSheet, TextInput } from 'react-native'
-import { launchImageLibrary, launchCamera } from 'react-native-image-picker'
+import ImagePicker from 'react-native-image-crop-picker'
+
 import { useAuth } from 'context/Auth'
 import { useDatabase } from 'context/Database'
 import storage from '@react-native-firebase/storage'
 
 const SubirFoto = () => {
-  const [imageUri, setImageUri] = useState(null)
-  const [imageNombre, setImageNombre] = useState(null)
+  // Array de {uri, filename}
+  const [imagenes, setImagenes] = useState([])
   const [gato, setGato] = useState(null)
 
   const { user } = useAuth()
   const db = useDatabase()
 
-  // Despliega el selector de imagenes.
-  const openPicker = () => {
-    const optionsPicker = {
-      storageOptions: {
-        // Opción de ImagePicker necesaria para evitar guardar la imagen.
-        skipBackup: true
-      }
-    }
-
-    launchImageLibrary(optionsPicker, response => {
-      if (response.didCancel) {
-        console.log('ImagePicker cancelado por usuarie.')
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error)
-      } else {
-        // Response es un json con información de la imagen (filename, size, type, uri)
-        const imagen = response.assets[0]
-
-        setImageUri(imagen.uri)
-        setImageNombre(imagen.fileName)
-      }
-    })
+  // Procesa la uri de la imagen para tomar nombre y extensión y le apenda un timestamp.
+  const filenameConTimestamp = uri => {
+    new Date().getTime() + '-' + uri.substring(uri.lastIndexOf('/') + 1, uri.length)
   }
 
-  // Abre la cámara.
-  const usarCamera = () => {
-    const optionsCamera = {
-      storageOptions: {
-        skipBackup: false
-        // TODO: averiguar porqué no se almacena la imagen en este path, si no en /data/user/0/com.tendercats/cache/
-        // path: 'ABCD'
-      }
-    }
-
-    launchCamera(optionsCamera, response => {
-      if (response.didCancel) {
-        console.log('ImagePicker cancelado por usuarie.')
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error)
-      } else {
-        const imagen = response.assets[0]
-
-        setImageUri(imagen.uri)
-        setImageNombre(imagen.fileName)
-      }
+  // Esperando mergeo de issue #1243 de react-native-image-crop-picker para funcionalidad combinada de multiple y cropping.
+  const seleccionar = () => {
+    ImagePicker.openPicker({
+      multiple: true,
+      cropping: true
     })
+      .then(images => {
+        let seleccionadas = []
+        images.map(image => {
+          let uri = image.path
+          seleccionadas = [...seleccionadas, { uri: uri, filename: filenameConTimestamp(uri) }]
+        })
+        setImagenes(seleccionadas)
+      })
+      // TO-DO Desglosar por error de usr canceló seleccion o no otorgó permisos de STORAGE.
+      .catch(error => {
+        console.error(error)
+      })
+  }
+
+  const tomarFoto = () => {
+    ImagePicker.openCamera({
+      cropping: true
+    })
+      .then(image => {
+        let uri = image.path
+        setImagenes([{ uri: uri, filename: filenameConTimestamp(uri) }])
+      })
+      //TO-DO Desglosar por error de usr canceló seleccion o no otorgó permisos de STORAGE.
+      .catch(error => {
+        console.error(error)
+      })
   }
 
   const subirFoto = async () => {
-    const reference = storage().ref(`/usuaries/${user.uid}/${imageNombre}`)
-    reference.putFile(imageUri).then(() => {
-      reference.getDownloadURL().then(url => {
-        const gatite = db.ref('gatites').push({
-          nombre: gato,
-          usuarie: user.uid,
-          follows: 0
-        })
-
-        gatite
-          .child('fotos')
-          .push(url)
-          .then(foto => {
-            db.ref(`fotos/${foto.key}`).set({
-              gatite: gatite.key
+    imagenes.map(image => {
+      const reference = storage().ref(`/usuaries/${user.uid}/${image.filename}`)
+      reference
+        .putFile(image.uri)
+        .then(() => {
+          reference
+            .getDownloadURL()
+            .then(url => {
+              const gatite = db.ref('gatites').push({
+                nombre: gato,
+                usuarie: user.uid,
+                follows: 0
+              })
+              gatite
+                .child('fotos')
+                .push(url)
+                .then(foto => {
+                  db.ref(`fotos/${foto.key}`).set({
+                    gatite: gatite.key
+                  })
+                })
+                .catch(error => {
+                  console.log(error)
+                })
             })
-          })
-      })
+            .catch(error => {
+              console.log(error)
+            })
+        })
+        .catch(error => {
+          console.log(error)
+        })
     })
   }
 
   return (
     <View>
-      <Button onPress={ subirFoto } title="Guardar" />
-      <Button title="Elegi una imagen existente" onPress={ openPicker } />
-      <Button title="Abrir cámara" onPress={ usarCamera } />
+      <Button onPress={ subirFoto } title={ `Guardar ${imagenes.length}` } />
+      <Button title="Elegi una imagen existente" onPress={ seleccionar } />
+      <Button title="Abrir cámara" onPress={ tomarFoto } />
       <TextInput
-        style={ { height: 40 } }
         placeholder="Ingresa un valor para Gato"
         onChangeText={ nombre => setGato(nombre) }
       />
 
-      { imageUri === null ? (
+      { imagenes.length === 0 ? (
         /* Imagen genérica de assets si le usuarie no eligió/tomo imagen aún. */
         <Image source={ require('../assets/images/no-image.png') } style={ styles.images } />
       ) : (
         /* Imagen preexistente de Galería o tomada con la Cámara. */
-        <Image source={ { uri: imageUri } } style={ styles.images } />
+        imagenes.map((imagen, index) => {
+          return <Image key={ index } source={ { uri: imagen.uri } } style={ styles.images } />
+        })
       ) }
     </View>
   )
