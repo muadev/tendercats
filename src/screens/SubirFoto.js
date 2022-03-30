@@ -22,9 +22,9 @@ const SubirFoto = () => {
       let seleccionadas = []
       images.map(image => {
         let uri = image.path
-        let fileName = new Date().getTime() + "-" + uri.substring(uri.lastIndexOf("/") + 1, uri.length)
+        let fileName = new Date().getTime() + '-' + uri.substring(uri.lastIndexOf('/') + 1, uri.length)
 
-        seleccionadas = [...seleccionadas, { "uri": uri, "fileName": fileName} ]
+        seleccionadas = [...seleccionadas, { 'uri': uri, 'fileName': fileName} ]
       })
       setImagenes(seleccionadas)
     })
@@ -72,7 +72,7 @@ const SubirFoto = () => {
         /* Imagen preexistente de Galería o tomada con la Cámara. */
         imagenes.map( (imagen, index) => {
           return (
-            <Image key={index} source={ { uri: imagen.uri } } style={ styles.images } />
+            <Image key={ index } source={ { uri: imagen.uri } } style={ styles.images } />
           )}
         )
       ) }
