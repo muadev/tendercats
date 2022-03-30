@@ -43,7 +43,6 @@ const SubirFoto = () => {
       cropping: true
     })
       .then(image => {
-        console.log(image)
         let uri = image.path
         let fileName =
           new Date().getTime() + '-' + uri.substring(uri.lastIndexOf('/') + 1, uri.length)
