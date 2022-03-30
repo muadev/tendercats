@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, TextInput, View, Button } from 'react-native'
 import { useDatabase } from 'context/Database'
 import { useAuth } from 'context/Auth'
@@ -29,7 +29,6 @@ const LectoEscritura = ({ navigation }) => {
     <View>
       { /* Usamos defaultValue para que se inicialice el elemento con el valor default mientras busca el de la DB. Si es null aparece el placeholder. */ }
       <TextInput
-        style={ { height: 40 } }
         placeholder="Ingresa un valor para Gato"
         onSubmitEditing={ event => update(0, event.nativeEvent.text) }
         defaultValue={ gato }
