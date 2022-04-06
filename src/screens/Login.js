@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { View, TextInput } from 'react-native'
-import { Text, Button } from 'react-native-paper'
+import { View } from 'react-native'
+import { Button, Text, TextInput } from 'react-native-paper'
 import auth from '@react-native-firebase/auth'
 
 const Login = ({ navigation }) => {
