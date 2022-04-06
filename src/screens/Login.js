@@ -7,7 +7,6 @@ const Login = ({ navigation }) => {
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
 
-  // TODO, Hacer los inputs `required`.
   return (
     <View>
       <Text>Login</Text>

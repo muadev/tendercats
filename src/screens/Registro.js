@@ -12,7 +12,6 @@ const Registro = ({ navigation }) => {
 
   const db = useDatabase()
 
-  // TODO, Hacer los inputs email, contraseña y nombre `required`.
   return (
     <View>
       <Text>Registro</Text>
