@@ -92,7 +92,7 @@ const SubirFoto = () => {
 
   return (
     <View>
-      <Button onPress={ subirFoto }>
+      <Button disabled={ gato ? false : true } onPress={ subirFoto }>
         { `Guardar ${imagenes.length}` }
       </Button>
       <Button onPress={ seleccionar } >
