@@ -49,6 +49,7 @@ const Registro = ({ navigation }) => {
       />
 
       <Button
+        disabled= { email && password && nombre ? false : true}
         onPress={ () => {
           auth()
             .createUserWithEmailAndPassword(email, password)
