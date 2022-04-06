@@ -28,7 +28,7 @@ const Login = ({ navigation }) => {
       />
 
       <Button
-        disabled= { email && password ? false : true}
+        disabled= { email && password ? false : true }
         onPress={ () => {
           auth()
             .signInWithEmailAndPassword(email, password)
