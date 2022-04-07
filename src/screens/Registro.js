@@ -14,10 +14,10 @@ const Registro = ({ navigation }) => {
   const db = useDatabase()
 
   const diccionario = {
-    "auth/weak-password": "La contraseña debe tener al menos 6 caracteres",
-    "auth/invalid-email": "Email inválido",
+    'auth/weak-password': 'La contraseña debe tener al menos 6 caracteres',
+    'auth/invalid-email': 'Email inválido',
     // Evitamos dar información sobre usuaries existentes.
-    "auth/email-already-in-use": "Email inválido"
+    'auth/email-already-in-use': 'Email inválido'
   }
   return (
     <View>
@@ -31,8 +31,8 @@ const Registro = ({ navigation }) => {
         value={ email }
       />
 
-      { (error == "auth/invalid-email" || error == "auth/email-already-in-use") &&
-      <HelperText type="error" visible={true}>
+      { (error == 'auth/invalid-email' || error == 'auth/email-already-in-use') &&
+      <HelperText type="error" visible={ true }>
         { diccionario[error] }
       </HelperText>
       }
@@ -45,8 +45,8 @@ const Registro = ({ navigation }) => {
         value={ password }
       />
 
-      { error == "auth/weak-password" &&
-      <HelperText type="error" visible={true}>
+      { error == 'auth/weak-password' &&
+      <HelperText type="error" visible={ true }>
         { diccionario[error] }
       </HelperText>
       }
