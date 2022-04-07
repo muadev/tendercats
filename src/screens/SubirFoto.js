@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Button, View, Image, StyleSheet, TextInput } from 'react-native'
+import { View, Image, StyleSheet } from 'react-native'
+import { Button, TextInput } from 'react-native-paper'
 import ImagePicker from 'react-native-image-crop-picker'
 
 import { useAuth } from 'context/Auth'
@@ -91,9 +92,15 @@ const SubirFoto = () => {
 
   return (
     <View>
-      <Button onPress={ subirFoto } title={ `Guardar ${imagenes.length}` } />
-      <Button title="Elegi una imagen existente" onPress={ seleccionar } />
-      <Button title="Abrir cámara" onPress={ tomarFoto } />
+      <Button disabled={ gato ? false : true } onPress={ subirFoto }>
+        { `Guardar ${imagenes.length}` }
+      </Button>
+      <Button onPress={ seleccionar } >
+        Elegi una imagen existente
+      </Button>
+      <Button onPress={ tomarFoto }>
+        Abrir cámara
+      </Button>
       <TextInput
         placeholder="Ingresa un valor para Gato"
         onChangeText={ nombre => setGato(nombre) }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Text, TextInput, View, Button } from 'react-native'
+import { View } from 'react-native'
+import { Button, Text, TextInput } from 'react-native-paper'
 import { useDatabase } from 'context/Database'
 import { useAuth } from 'context/Auth'
 
@@ -27,7 +28,7 @@ const LectoEscritura = ({ navigation }) => {
 
   return (
     <View>
-      { /* Usamos defaultValue para que se inicialice el elemento con el valor default mientras busca el de la DB. Si es null aparece el placeholder. */ }
+      { /* Usamos defaultValue para que se inicialice el elemento con el valor default mientras busca el de la DB. Si es null aparece el placeholder. La nueva versión de react-native-paper rompe la funcionalidad esperando issue react-native-paper/issues/3144 */ }
       <TextInput
         placeholder="Ingresa un valor para Gato"
         onSubmitEditing={ event => update(0, event.nativeEvent.text) }
@@ -36,15 +37,15 @@ const LectoEscritura = ({ navigation }) => {
 
       <Text>{ gato }</Text>
 
-      <Button
-        title="Ir a Perfil"
-        onPress={ () => navigation.navigate('Perfil', { uid: uid }) }
-      />
-      <Button
-        title="Subir una imagen"
-        onPress={ () => navigation.navigate('SubirFoto') }
-      />
-      <Button title="Go Back" onPress={ () => navigation.goBack } />
+      <Button onPress={ () => navigation.navigate('Perfil', { uid: uid }) }>
+        Ir a Perfil
+      </Button>
+      <Button onPress={ () => navigation.navigate('SubirFoto') }>
+        Subir una imagen
+      </Button>
+      <Button onPress={ () => navigation.goBack }>
+        Go Back
+      </Button>
     </View>
   )
 }

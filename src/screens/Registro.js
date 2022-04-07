@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View } from 'react-native'
-import { Text, Button, TextInput } from 'react-native-paper'
+import { HelperText, Text, Button, TextInput } from 'react-native-paper'
 import auth from '@react-native-firebase/auth'
 import { useDatabase } from 'context/Database'
 
@@ -9,21 +9,33 @@ const Registro = ({ navigation }) => {
   const [password, setPassword] = useState(null)
   const [nombre, setNombre] = useState('')
   const [bio, setBio] = useState('')
+  const [error, setError] = useState('')
 
   const db = useDatabase()
 
-  // TODO, Hacer los inputs email, contraseña y nombre `required`.
+  const diccionario = {
+    'auth/weak-password': 'La contraseña debe tener al menos 6 caracteres',
+    'auth/invalid-email': 'Email inválido',
+    // Evitamos dar información sobre usuaries existentes.
+    'auth/email-already-in-use': 'Email inválido'
+  }
   return (
     <View>
       <Text>Registro</Text>
 
       <TextInput
-        placeholder="Ingresa tu mail.."
+        placeholder="Ingresa tu email.."
         keyboardType="email-address"
         maxLength={ 64 }
         onChangeText={ setEmail }
         value={ email }
       />
+
+      { (error == 'auth/invalid-email' || error == 'auth/email-already-in-use') &&
+      <HelperText type="error" visible={ true }>
+        { diccionario[error] }
+      </HelperText>
+      }
 
       <TextInput
         placeholder="Ingresa tu contraseña.."
@@ -32,6 +44,12 @@ const Registro = ({ navigation }) => {
         onChangeText={ setPassword }
         value={ password }
       />
+
+      { error == 'auth/weak-password' &&
+      <HelperText type="error" visible={ true }>
+        { diccionario[error] }
+      </HelperText>
+      }
 
       <TextInput
         placeholder="Ingresa tu nombre.."
@@ -49,6 +67,7 @@ const Registro = ({ navigation }) => {
       />
 
       <Button
+        disabled= { email && password && nombre ? false : true }
         onPress={ () => {
           auth()
             .createUserWithEmailAndPassword(email, password)
@@ -64,7 +83,7 @@ const Registro = ({ navigation }) => {
               console.log('Registradx!')
             })
             .catch(error => {
-              console.error(error)
+              setError(error.code)
             })
         } }>
         Registrate

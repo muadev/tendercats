@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import { View, TextInput } from 'react-native'
-import { Text, Button } from 'react-native-paper'
+import { View } from 'react-native'
+import { Button, Text, TextInput } from 'react-native-paper'
 import auth from '@react-native-firebase/auth'
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
 
-  // TODO, Hacer los inputs `required`.
   return (
     <View>
       <Text>Login</Text>
@@ -29,6 +28,7 @@ const Login = ({ navigation }) => {
       />
 
       <Button
+        disabled= { email && password ? false : true }
         onPress={ () => {
           auth()
             .signInWithEmailAndPassword(email, password)
