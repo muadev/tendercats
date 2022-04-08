@@ -2,30 +2,37 @@ import React from 'react'
 import { View } from 'react-native'
 import { HelperText, TextInput } from 'react-native-paper'
 
-const diccionario = {
-  'auth/weak-password': 'La contraseña debe tener al menos 6 caracteres',
-  'auth/invalid-email': 'Email inválido',
-  // Evitamos dar información sobre usuaries existentes.
-  'auth/email-already-in-use': 'Email inválido'
+const EvaluarError = (error) => {
+  let mensajeDeError = ''
+
+  switch (error) {
+    case 'auth/weak-password':
+      mensajeDeError = 'La contraseña debe tener al menos 6 caracteres'
+      break
+    case 'auth/invalid-email':
+    // Evitamos dar información sobre usuaries existentes.
+    case 'auth/email-already-in-use':
+      mensajeDeError = 'Email inválido'
+      break
+    default:
+      return null
+  }
+
+  return (
+    <HelperText type="error" visible={ true }>
+      { mensajeDeError }
+    </HelperText>
+  )
 }
 
-
-const TextInputConHelper = ({placeholder, keyboardType, onChangeText, email, error}) => {
+//Recibe tipos de error y el error en sí para el manejo del HelperText, y además cualquier otra props que vaya para el componente TextInput.
+const TextInputConHelper = ({tiposDeError, error, ...props}) => {
   return (
     <View>
       <TextInput
-        placeholder= { placeholder }
-        keyboardType={ keyboardType }
-        maxLength={ 64 }
-        onChangeText={ onChangeText }
-        value= { email }
+        { ...props }
       />
-
-      { (error == 'auth/invalid-email' || error == 'auth/email-already-in-use') &&
-      <HelperText type="error" visible={ true }>
-        { diccionario[error] }
-      </HelperText>
-      }
+      { tiposDeError.includes(error) && EvaluarError(error) }
     </View>
   )
 }

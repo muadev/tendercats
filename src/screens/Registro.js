@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import { HelperText, Text, Button, TextInput } from 'react-native-paper'
 import auth from '@react-native-firebase/auth'
 import { useDatabase } from 'context/Database'
+
 import TextInputConHelper from '../componentes/TextInputConHelper'
 
 const Registro = ({ navigation }) => {
@@ -14,37 +15,29 @@ const Registro = ({ navigation }) => {
 
   const db = useDatabase()
 
-  const diccionario = {
-    'auth/weak-password': 'La contraseña debe tener al menos 6 caracteres',
-    'auth/invalid-email': 'Email inválido',
-    // Evitamos dar información sobre usuaries existentes.
-    'auth/email-already-in-use': 'Email inválido'
-  }
   return (
     <View>
       <Text>Registro</Text>
 
       <TextInputConHelper
+        maxLength={ 64 }
         placeholder="Ingresa tu email.."
         keyboardType="email-address"
         onChangeText={ setEmail }
         value={ email }
         error= { error }
+        tiposDeError= { ['auth/invalid-email', 'auth/email-already-in-use']}
       />
 
-      <TextInput
+      <TextInputConHelper
+        maxLength={ 64 }
         placeholder="Ingresa tu contraseña.."
         secureTextEntry={ true }
-        maxLength={ 64 }
         onChangeText={ setPassword }
         value={ password }
+        error= { error }
+        tiposDeError= { ['auth/weak-password'] }
       />
-
-      { error == 'auth/weak-password' &&
-      <HelperText type="error" visible={ true }>
-        { diccionario[error] }
-      </HelperText>
-      }
 
       <TextInput
         placeholder="Ingresa tu nombre.."
