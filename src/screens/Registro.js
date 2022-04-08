@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import { HelperText, Text, Button, TextInput } from 'react-native-paper'
 import auth from '@react-native-firebase/auth'
 import { useDatabase } from 'context/Database'
+import TextInputConHelper from '../componentes/TextInputConHelper'
 
 const Registro = ({ navigation }) => {
   const [email, setEmail] = useState(null)
@@ -23,19 +24,13 @@ const Registro = ({ navigation }) => {
     <View>
       <Text>Registro</Text>
 
-      <TextInput
+      <TextInputConHelper
         placeholder="Ingresa tu email.."
         keyboardType="email-address"
-        maxLength={ 64 }
         onChangeText={ setEmail }
         value={ email }
+        error= { error }
       />
-
-      { (error == 'auth/invalid-email' || error == 'auth/email-already-in-use') &&
-      <HelperText type="error" visible={ true }>
-        { diccionario[error] }
-      </HelperText>
-      }
 
       <TextInput
         placeholder="Ingresa tu contraseña.."
