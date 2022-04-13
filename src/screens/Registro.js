@@ -26,7 +26,7 @@ const Registro = ({ navigation }) => {
         onChangeText={ setEmail }
         value={ email }
         error= { error }
-        tiposDeError= { ['auth/invalid-email', 'auth/email-already-in-use']}
+        tiposDeError= { ['auth/invalid-email', 'auth/email-already-in-use'] }
       />
 
       <TextInputConError

@@ -9,8 +9,8 @@ const TextInputConError = ({tiposDeError, error, ...props}) => {
       <TextInput
         { ...props }
       />
-      { tiposDeError.includes(error) && 
-    
+      { tiposDeError.includes(error) &&
+
         <HelperText type="error" visible={ true }>
           { errores[error] }
         </HelperText>
