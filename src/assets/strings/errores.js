@@ -4,4 +4,3 @@ export default {
     // Evitamos dar información sobre usuaries existentes.
     'auth/email-already-in-use': 'Email inválido'
   }
-
