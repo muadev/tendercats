@@ -4,7 +4,7 @@ import { HelperText, Text, Button, TextInput } from 'react-native-paper'
 import auth from '@react-native-firebase/auth'
 import { useDatabase } from 'context/Database'
 
-import TextInputConHelper from '../componentes/TextInputConHelper'
+import TextInputConError from 'componentes/TextInputConError'
 
 const Registro = ({ navigation }) => {
   const [email, setEmail] = useState(null)
@@ -19,7 +19,7 @@ const Registro = ({ navigation }) => {
     <View>
       <Text>Registro</Text>
 
-      <TextInputConHelper
+      <TextInputConError
         maxLength={ 64 }
         placeholder="Ingresa tu email.."
         keyboardType="email-address"
@@ -29,7 +29,7 @@ const Registro = ({ navigation }) => {
         tiposDeError= { ['auth/invalid-email', 'auth/email-already-in-use']}
       />
 
-      <TextInputConHelper
+      <TextInputConError
         maxLength={ 64 }
         placeholder="Ingresa tu contraseña.."
         secureTextEntry={ true }
