@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View } from 'react-native'
-import { HelperText, Text, Button, TextInput } from 'react-native-paper'
+import { Text, Button, TextInput } from 'react-native-paper'
 import auth from '@react-native-firebase/auth'
 import { useDatabase } from 'context/Database'
 
@@ -70,8 +70,9 @@ const Registro = ({ navigation }) => {
               // todo.
               console.log('Registradx!')
             })
-            .catch(error => {
-              setError(error.code)
+            .catch(e => {
+              // Hace el catch del error, se llama "e" porque en Scope mas alto está "error".
+              setError(e.code)
             })
         } }>
         Registrate
