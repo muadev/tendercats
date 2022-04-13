@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { View } from 'react-native'
-import { HelperText, Text, Button, TextInput } from 'react-native-paper'
+import { Text, Button, TextInput } from 'react-native-paper'
 import auth from '@react-native-firebase/auth'
 import { useDatabase } from 'context/Database'
+
+import TextInputConError from 'componentes/TextInputConError'
 
 const Registro = ({ navigation }) => {
   const [email, setEmail] = useState(null)
@@ -13,43 +15,29 @@ const Registro = ({ navigation }) => {
 
   const db = useDatabase()
 
-  const diccionario = {
-    'auth/weak-password': 'La contraseña debe tener al menos 6 caracteres',
-    'auth/invalid-email': 'Email inválido',
-    // Evitamos dar información sobre usuaries existentes.
-    'auth/email-already-in-use': 'Email inválido'
-  }
   return (
     <View>
       <Text>Registro</Text>
 
-      <TextInput
+      <TextInputConError
+        maxLength={ 64 }
         placeholder="Ingresa tu email.."
         keyboardType="email-address"
-        maxLength={ 64 }
         onChangeText={ setEmail }
         value={ email }
+        error= { error }
+        tiposDeError= { ['auth/invalid-email', 'auth/email-already-in-use'] }
       />
 
-      { (error == 'auth/invalid-email' || error == 'auth/email-already-in-use') &&
-      <HelperText type="error" visible={ true }>
-        { diccionario[error] }
-      </HelperText>
-      }
-
-      <TextInput
+      <TextInputConError
+        maxLength={ 64 }
         placeholder="Ingresa tu contraseña.."
         secureTextEntry={ true }
-        maxLength={ 64 }
         onChangeText={ setPassword }
         value={ password }
+        error= { error }
+        tiposDeError= { ['auth/weak-password'] }
       />
-
-      { error == 'auth/weak-password' &&
-      <HelperText type="error" visible={ true }>
-        { diccionario[error] }
-      </HelperText>
-      }
 
       <TextInput
         placeholder="Ingresa tu nombre.."
@@ -82,8 +70,9 @@ const Registro = ({ navigation }) => {
               // todo.
               console.log('Registradx!')
             })
-            .catch(error => {
-              setError(error.code)
+            .catch(e => {
+              // Hace el catch del error, se llama "e" porque en Scope mas alto está "error".
+              setError(e.code)
             })
         } }>
         Registrate
