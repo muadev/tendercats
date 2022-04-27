@@ -5,10 +5,10 @@ const Media = ({ imagen }) => {
   console.log(imagen)
   return (
     <Image
-      style={{ flex: 1 }}
-      source={{
+      style={ { flex: 1 } }
+      source={ {
         uri: imagen
-      }}
+      } }
     />
   )
 }

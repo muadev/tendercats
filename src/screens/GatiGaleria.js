@@ -16,13 +16,13 @@ const arrayImagenes = [
 const GatiGaleria = () => {
   const renderMedia = () => {
     return arrayImagenes.map((image, index) => {
-      return <Media imagen={image} key={index} />
+      return <Media imagen={ image } key={ index } />
     })
   }
   return (
-    <View style={{ flex: 1 }}>
+    <View style={ { flex: 1 } }>
       <Text>GatiGaleria</Text>
-      {renderMedia()}
+      { renderMedia() }
     </View>
   )
 }

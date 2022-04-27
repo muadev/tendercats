@@ -35,7 +35,7 @@ const Perfil = ({ route, navigation }) => {
   return (
     <View>
       <Button
-        onPress={() =>
+        onPress={ () =>
           auth().signOut().then(
             // Igual que en Login, no hay que navegar manualmente porque las
             // pantallas se rerenderizan sin user después de desloguearnos.
@@ -45,18 +45,18 @@ const Perfil = ({ route, navigation }) => {
         Deslogueame
       </Button>
 
-      <Text>{nombre}</Text>
-      <Text>{email}</Text>
-      <Text>{bio}</Text>
-      <Text>{alerta}</Text>
+      <Text>{ nombre }</Text>
+      <Text>{ email }</Text>
+      <Text>{ bio }</Text>
+      <Text>{ alerta }</Text>
       <Text>Mis gatis:</Text>
-      {gatis.map((gato, index) => {
+      { gatis.map((gato, index) => {
         return (
-          <Button key={index} onPress={() => navigation.navigate('GatiGaleria')}>
-            {gato}
+          <Button key={ index } onPress={ () => navigation.navigate('GatiGaleria') }>
+            { gato }
           </Button>
         )
-      })}
+      }) }
     </View>
   )
 }
