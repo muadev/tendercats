@@ -22,7 +22,20 @@ const GatiGaleria = () => {
   return (
     <View style={ { flex: 1 } }>
       <Text>GatiGaleria</Text>
-      { renderMedia() }
+      <View style={ { flex: 1, flexDirection: "row", flexWrap: "wrap", position: "relative"} }>
+        <View
+          style={{ backgroundColor: "red", width: "33%", height: "20%" }}
+        />
+        <View
+          style={{ backgroundColor: "green", width: "33%", height: "20%" }}
+        />
+        <View
+          style={{ backgroundColor: "powderblue", width: "33%", height: "20%"  }}
+        />
+        <View
+          style={{ backgroundColor: "blue", width: "33%", height: "20%"  }}
+        />
+      </View>
     </View>
   )
 }
