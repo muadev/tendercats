@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react"
-import { Animated, View, StyleSheet, PanResponder, Text } from "react-native"
+import React, { useRef, useState } from 'react'
+import { Animated, View, StyleSheet, PanResponder, Text } from 'react-native'
 
 const Match = () => {
-  const [fondo, setFondo] = useState("steelblue")
+  const [fondo, setFondo] = useState('steelblue')
 
   const pan = useRef(new Animated.ValueXY()).current
   const panResponder = useRef(
@@ -17,12 +17,12 @@ const Match = () => {
         const x = pan.x._value
 
         if (x > 200) {
-          setFondo("red")
+          setFondo('red')
         // A la izquierda.
         } else if (x < -200) {
-          setFondo("green")
+          setFondo('green')
         } else {
-          setFondo("steelblue")
+          setFondo('steelblue')
         }
 
         Animated.spring(pan, { toValue: { x: 0, y: 0 }, useNativeDriver: true }).start()
@@ -31,27 +31,27 @@ const Match = () => {
   ).current
 
   return (
-    <View style={styles.contenedor}>
+    <View style={ styles.contenedor }>
       <Animated.View
-        style={{
+        style={ {
           transform: [{ translateX: pan.x }, { translateY: pan.y }]
-        }}
-        {...panResponder.panHandlers}
+        } }
+        { ...panResponder.panHandlers }
       >
         <View style={ [styles.superior, { backgroundColor: fondo }] }/>
       </Animated.View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   contenedor: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row'
   },
   superior: {
     flex: 1,
-    minWidth: "101%",
+    minWidth: '101%',
     borderRadius: 5,
     margin: -1
   }
