@@ -1,14 +1,13 @@
 import React from 'react'
 import { Image } from 'react-native'
 
-const Media = ({ imagen }) => {
-  console.log(imagen)
+const Media = ({ source }) => {
   return (
-    <Image
-      style={ { flex: 1 } }
-      source={ {
-        uri: imagen
-      } }
+    <Image source={{ uri: source}}
+      style={{
+        flex: 1,
+        height:150,
+      }}
     />
   )
 }
