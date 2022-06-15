@@ -35,7 +35,7 @@ const Perfil = ({ route, navigation }) => {
   return (
     <View>
       <Button
-        onPress={() =>
+        onPress={ () =>
           auth().signOut().then(
             // Igual que en Login, no hay que navegar manualmente porque las
             // pantallas se rerenderizan sin user después de desloguearnos.
@@ -44,21 +44,21 @@ const Perfil = ({ route, navigation }) => {
         }>
         Deslogueame
       </Button>
-      <Text>{nombre}</Text>
-      <Text>{email}</Text>
-      <Text>{bio}</Text>
-      <Text>{alerta}</Text>
+      <Text>{ nombre }</Text>
+      <Text>{ email }</Text>
+      <Text>{ bio }</Text>
+      <Text>{ alerta }</Text>
       <Text>Mis gatis:</Text>
-      {Object.keys(gatites).map(gatiteId => {
+      { Object.keys(gatites).map(gatiteId => {
         return (
           // TODO: Armar componente propio con portada de gatite y nombre.
           <Button
-            key={gatiteId}
-            onPress={() => navigation.navigate('GatiGaleria', { gatiteId: gatiteId })}>
-            {gatites[gatiteId].nombre}
+            key={ gatiteId }
+            onPress={ () => navigation.navigate('GatiGaleria', { gatiteId: gatiteId }) }>
+            { gatites[gatiteId].nombre }
           </Button>
         )
-      })}
+      }) }
     </View>
   )
 }

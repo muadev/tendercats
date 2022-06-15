@@ -98,25 +98,25 @@ const SubirFoto = () => {
 
   return (
     <View>
-      <Button disabled={gato ? false : true} onPress={subirFoto}>
-        {`Guardar ${imagenes.length}`}
+      <Button disabled={ gato ? false : true } onPress={ subirFoto }>
+        { `Guardar ${imagenes.length}` }
       </Button>
-      <Button onPress={seleccionar}>Elegi una imagen existente</Button>
-      <Button onPress={tomarFoto}>Abrir cámara</Button>
+      <Button onPress={ seleccionar }>Elegi una imagen existente</Button>
+      <Button onPress={ tomarFoto }>Abrir cámara</Button>
       <TextInput
         placeholder="Ingresa un valor para Gato"
-        onChangeText={nombre => setGato(nombre)}
+        onChangeText={ nombre => setGato(nombre) }
       />
 
-      {imagenes.length === 0 ? (
+      { imagenes.length === 0 ? (
         /* Imagen genérica de assets si le usuarie no eligió/tomo imagen aún. */
-        <Image source={require('../assets/images/no-image.png')} style={styles.images} />
+        <Image source={ require('../assets/images/no-image.png') } style={ styles.images } />
       ) : (
         /* Imagen preexistente de Galería o tomada con la Cámara. */
         imagenes.map((imagen, index) => {
-          return <Image key={index} source={{ uri: imagen.uri }} style={styles.images} />
+          return <Image key={ index } source={ { uri: imagen.uri } } style={ styles.images } />
         })
-      )}
+      ) }
     </View>
   )
 }

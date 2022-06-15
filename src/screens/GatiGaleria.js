@@ -19,13 +19,13 @@ const GatiGaleria = ({ route }) => {
 
   return (
     <View>
-      <Text>{gatiteId}</Text>
+      <Text>{ gatiteId }</Text>
       <FlatList
-        horizontal={false}
-        numColumns={3}
-        columnWrapperStyle={{ flex: 1 }}
-        data={arrayImagenes}
-        renderItem={({ item }) => <Media source={item} />}
+        horizontal={ false }
+        numColumns={ 3 }
+        columnWrapperStyle={ { flex: 1 } }
+        data={ arrayImagenes }
+        renderItem={ ({ item }) => <Media source={ item } /> }
       />
     </View>
   )
