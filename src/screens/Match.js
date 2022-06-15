@@ -24,10 +24,10 @@ const Match = () => {
             setMoveX(x)
             setMoveY(pan.y._value)
 
-            if (x > 200) {
+            if (x > 150) {
               // Preview de la acción a la derecha.
               setFondo('yellow')
-            } else if (x < -200) {
+            } else if (x < -150) {
               // Preview de la acción a la izquierda.
               setFondo('purple')
             } else {
@@ -43,10 +43,10 @@ const Match = () => {
         setReleaseX(x)
         setReleaseY(pan.y._value)
 
-        if (x > 200) {
+        if (x > 150) {
           // Realizar la acción de la derecha.
           setFondo('red')
-        } else if (x < -200) {
+        } else if (x < -150) {
           // Realizar la acción de la izquierda.
           setFondo('green')
         } else {
