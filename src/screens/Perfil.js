@@ -8,10 +8,9 @@ const Perfil = ({ route, navigation }) => {
   const [nombre, setNombre] = useState('Buscando')
   const [email, setEmail] = useState('Buscando')
   const [bio, setBio] = useState('Buscando')
+  const [gatites, setGatites] = useState({})
   //TODO, en algún momento este estado debe pasar a ser un toast unificado para la app.
   const [alerta, setAlerta] = useState('')
-
-  const gatis = ['Klaus', 'Harvey', 'Yoko']
 
   const db = useDatabase()
   const { uid } = route.params
@@ -25,6 +24,7 @@ const Perfil = ({ route, navigation }) => {
         setNombre(respuesta?.nombre)
         setEmail(respuesta?.email)
         setBio(respuesta?.bio)
+        setGatites(respuesta?.gatites)
       })
       .catch(error => {
         setAlerta(error.message)
@@ -35,7 +35,7 @@ const Perfil = ({ route, navigation }) => {
   return (
     <View>
       <Button
-        onPress={ () =>
+        onPress={() =>
           auth().signOut().then(
             // Igual que en Login, no hay que navegar manualmente porque las
             // pantallas se rerenderizan sin user después de desloguearnos.
@@ -44,19 +44,21 @@ const Perfil = ({ route, navigation }) => {
         }>
         Deslogueame
       </Button>
-
-      <Text>{ nombre }</Text>
-      <Text>{ email }</Text>
-      <Text>{ bio }</Text>
-      <Text>{ alerta }</Text>
+      <Text>{nombre}</Text>
+      <Text>{email}</Text>
+      <Text>{bio}</Text>
+      <Text>{alerta}</Text>
       <Text>Mis gatis:</Text>
-      { gatis.map((gato, index) => {
+      {Object.keys(gatites).map(gatiteId => {
         return (
-          <Button key={ index } onPress={ () => navigation.navigate('GatiGaleria') }>
-            { gato }
+          // TODO: Armar componente propio con portada de gatite y nombre.
+          <Button
+            key={gatiteId}
+            onPress={() => navigation.navigate('GatiGaleria', { gatiteId: gatiteId })}>
+            {gatites[gatiteId].nombre}
           </Button>
         )
-      }) }
+      })}
     </View>
   )
 }
