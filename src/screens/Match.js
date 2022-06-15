@@ -2,26 +2,55 @@ import React, { useRef, useState } from 'react'
 import { Animated, View, StyleSheet, PanResponder, Text } from 'react-native'
 
 const Match = () => {
+  // TODO, Fondo debería ser la imagen inicial.
   const [fondo, setFondo] = useState('steelblue')
+  const [moveX, setMoveX] = useState(0)
+  const [moveY, setMoveY] = useState(0)
+  const [releaseX, setReleaseX] = useState(0)
+  const [releaseY, setReleaseY] = useState(0)
 
   const pan = useRef(new Animated.ValueXY()).current
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
+      // Ignoramos el primer parámetro que recibe Animated.event.
       onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }],
-        // FIXME, Da error ponerlo en true por alguna razón.
-        { useNativeDriver: false, listener: (event) => {
+        {
+          useNativeDriver: false,
+          // Esto tiene que matchear con los argumentos del evento previo.
+          listener: (event, gestureState) => {
+            const x = pan.x._value
+
+            setMoveX(x)
+            setMoveY(pan.y._value)
+
+            if (x > 200) {
+              // Preview de la acción a la derecha.
+              setFondo('yellow')
+            } else if (x < -200) {
+              // Preview de la acción a la izquierda.
+              setFondo('purple')
+            } else {
+              // No debería hacer nada.
+              setFondo('white')
+            }
+          }
         }
-      }),
+      ),
       onPanResponderRelease: () => {
         const x = pan.x._value
 
+        setReleaseX(x)
+        setReleaseY(pan.y._value)
+
         if (x > 200) {
+          // Realizar la acción de la derecha.
           setFondo('red')
-        // A la izquierda.
         } else if (x < -200) {
+          // Realizar la acción de la izquierda.
           setFondo('green')
         } else {
+          // Abortar la acción.
           setFondo('steelblue')
         }
 
@@ -38,7 +67,12 @@ const Match = () => {
         } }
         { ...panResponder.panHandlers }
       >
-        <View style={ [styles.superior, { backgroundColor: fondo }] }/>
+        <View style={ [styles.superior, { backgroundColor: fondo }] }>
+          <Text>move x: { moveX }</Text>
+          <Text>move y: { moveY }</Text>
+          <Text>release x: { releaseX }</Text>
+          <Text>release y: { releaseY }</Text>
+        </View>
       </Animated.View>
     </View>
   )
