@@ -17,13 +17,13 @@ const arrayImagenes = [
 const GatiGaleria = () => {
   return (
     <FlatList
-      horizontal={false}
+      horizontal={ false }
       numColumns= { 3 }
-      columnWrapperStyle={{ flex: 1 }}
-      data={arrayImagenes}
+      columnWrapperStyle={ { flex: 1 } }
+      data={ arrayImagenes }
       renderItem={ ({ item }) => (
         <Media source={ item } />
-      )}
+      ) }
     />
   )
 }
