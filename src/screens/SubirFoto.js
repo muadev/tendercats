@@ -68,6 +68,7 @@ const SubirFoto = () => {
                 usuarie: user.uid,
                 follows: 0
               })
+              // Crea gatite y le agrega la foto.
               gatite
                 .child('fotos')
                 .push(url)
@@ -79,6 +80,11 @@ const SubirFoto = () => {
                 .catch(error => {
                   console.log(error)
                 })
+              // Lo vincula en el usuarie.
+              db.ref(`/usuaries/${user.uid}`).child('gatites').child(gatite.key).set({
+                nombre: gato,
+                foto: url
+              })
             })
             .catch(error => {
               console.log(error)
