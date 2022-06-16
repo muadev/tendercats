@@ -63,22 +63,28 @@ const SubirFoto = () => {
           reference
             .getDownloadURL()
             .then(url => {
-              const gatite = db.ref('gatites').push({
+              const gatite = db.ref('/gatites').push({
                 nombre: gato,
                 usuarie: user.uid,
                 follows: 0
               })
+              // Crea gatite y le agrega la foto.
               gatite
                 .child('fotos')
                 .push(url)
                 .then(foto => {
-                  db.ref(`fotos/${foto.key}`).set({
+                  db.ref(`/fotos/${foto.key}`).set({
                     gatite: gatite.key
                   })
                 })
                 .catch(error => {
                   console.log(error)
                 })
+              // Lo vincula en el usuarie.
+              db.ref(`/usuaries/${user.uid}`).child('minigatites').child(gatite.key).set({
+                nombre: gato,
+                portada: url
+              })
             })
             .catch(error => {
               console.log(error)
@@ -95,12 +101,8 @@ const SubirFoto = () => {
       <Button disabled={ gato ? false : true } onPress={ subirFoto }>
         { `Guardar ${imagenes.length}` }
       </Button>
-      <Button onPress={ seleccionar } >
-        Elegi una imagen existente
-      </Button>
-      <Button onPress={ tomarFoto }>
-        Abrir cámara
-      </Button>
+      <Button onPress={ seleccionar }>Elegi una imagen existente</Button>
+      <Button onPress={ tomarFoto }>Abrir cámara</Button>
       <TextInput
         placeholder="Ingresa un valor para Gato"
         onChangeText={ nombre => setGato(nombre) }

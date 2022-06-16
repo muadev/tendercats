@@ -4,10 +4,11 @@ import { Text, Button } from 'react-native-paper'
 import { View } from 'react-native'
 import { useDatabase } from 'context/Database'
 
-const Perfil = ({ route }) =>{
+const Perfil = ({ route, navigation }) => {
   const [nombre, setNombre] = useState('Buscando')
   const [email, setEmail] = useState('Buscando')
   const [bio, setBio] = useState('Buscando')
+  const [gatites, setGatites] = useState({})
   //TODO, en algún momento este estado debe pasar a ser un toast unificado para la app.
   const [alerta, setAlerta] = useState('')
 
@@ -15,21 +16,23 @@ const Perfil = ({ route }) =>{
   const { uid } = route.params
 
   useEffect(() => {
-    db.ref(`usuaries/${uid}`).once('value', snapshot => {
-      // Los signos de pregunta habilitan a que cualquier intermediario sea null.
-      const respuesta = snapshot?.val()
+    db.ref(`usuaries/${uid}`)
+      .once('value', snapshot => {
+        // Los signos de pregunta habilitan a que cualquier intermediario sea null.
+        const respuesta = snapshot?.val()
 
-      setNombre(respuesta?.nombre)
-      setEmail(respuesta?.email)
-      setBio(respuesta?.bio)
-    }).catch((error)=> {
-      setAlerta(error.message)
-      console.log(error.message)
-    })
+        setNombre(respuesta?.nombre)
+        setEmail(respuesta?.email)
+        setBio(respuesta?.bio)
+        setGatites(respuesta?.gatites)
+      })
+      .catch(error => {
+        setAlerta(error.message)
+        console.log(error.message)
+      })
   }, [db, uid])
 
   return (
-
     <View>
       <Button
         onPress={ () =>
@@ -39,13 +42,23 @@ const Perfil = ({ route }) =>{
             console.log('Deslogueadx!')
           )
         }>
-          Deslogueame
+        Deslogueame
       </Button>
-
       <Text>{ nombre }</Text>
       <Text>{ email }</Text>
       <Text>{ bio }</Text>
       <Text>{ alerta }</Text>
+      <Text>Mis gatis:</Text>
+      { Object.keys(gatites).map(gatiteId => {
+        return (
+          // TODO: Armar componente propio con portada de gatite y nombre.
+          <Button
+            key={ gatiteId }
+            onPress={ () => navigation.navigate('GatiGaleria', { gatiteId: gatiteId }) }>
+            { gatites[gatiteId].nombre }
+          </Button>
+        )
+      }) }
     </View>
   )
 }

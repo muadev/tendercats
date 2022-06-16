@@ -17,6 +17,7 @@ import Perfil from 'screens/Perfil'
 import LectoEscritura from 'screens/LectoEscritura'
 import SubirFoto from 'screens/SubirFoto'
 import Registro from 'screens/Registro'
+import GatiGaleria from 'screens/GatiGaleria'
 
 // Se inicializa el navegador y se le anidan las pantallas.
 const Stack = createNativeStackNavigator()
@@ -30,11 +31,7 @@ const MainNavigation = () => {
     return (
       <NavigationContainer theme={ theme }>
         <Stack.Navigator>
-          <Stack.Screen
-            name="Splash"
-            component={ Splash }
-            options={ { headerShown: false } }
-          />
+          <Stack.Screen name="Splash" component={ Splash } options={ { headerShown: false } } />
         </Stack.Navigator>
       </NavigationContainer>
     )
@@ -48,20 +45,13 @@ const MainNavigation = () => {
       <Stack.Screen name="LectoEscritura" component={ LectoEscritura } />
       <Stack.Screen name="Perfil" component={ Perfil } />
       <Stack.Screen name="SubirFoto" component={ SubirFoto } />
+      <Stack.Screen name="GatiGaleria" component={ GatiGaleria } />
     </>
   ) : (
     <>
       <Stack.Screen name="Auth" component={ Auth } />
-      <Stack.Screen
-        name="Login"
-        component={ Login }
-        options={ { headerShown: false } }
-      />
-      <Stack.Screen
-        name="Registro"
-        component={ Registro }
-        options={ { headerShown: false } }
-      />
+      <Stack.Screen name="Login" component={ Login } options={ { headerShown: false } } />
+      <Stack.Screen name="Registro" component={ Registro } options={ { headerShown: false } } />
     </>
   )
 
