@@ -43,6 +43,9 @@ const LectoEscritura = ({ navigation }) => {
       <Button onPress={ () => navigation.navigate('SubirFoto') }>
         Subir una imagen
       </Button>
+      <Button onPress={ () => navigation.navigate('Match') }>
+        MichiMatch
+      </Button>
       <Button onPress={ () => navigation.goBack }>
         Go Back
       </Button>

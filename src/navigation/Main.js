@@ -18,6 +18,7 @@ import LectoEscritura from 'screens/LectoEscritura'
 import SubirFoto from 'screens/SubirFoto'
 import Registro from 'screens/Registro'
 import GatiGaleria from 'screens/GatiGaleria'
+import Match from 'screens/Match'
 
 // Se inicializa el navegador y se le anidan las pantallas.
 const Stack = createNativeStackNavigator()
@@ -46,6 +47,7 @@ const MainNavigation = () => {
       <Stack.Screen name="Perfil" component={ Perfil } />
       <Stack.Screen name="SubirFoto" component={ SubirFoto } />
       <Stack.Screen name="GatiGaleria" component={ GatiGaleria } />
+      <Stack.Screen name="Match" component={ Match } />
     </>
   ) : (
     <>
