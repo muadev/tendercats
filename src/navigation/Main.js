@@ -43,11 +43,11 @@ const MainNavigation = () => {
   // entre sí (es importante para saber qué rutas existen en cada stack).
   const Pantallas = user ? (
     <>
-      <Stack.Screen name="Match" component={ Match } />
       <Stack.Screen name="LectoEscritura" component={ LectoEscritura } />
       <Stack.Screen name="Perfil" component={ Perfil } />
       <Stack.Screen name="SubirFoto" component={ SubirFoto } />
       <Stack.Screen name="GatiGaleria" component={ GatiGaleria } />
+      <Stack.Screen name="Match" component={ Match } />
     </>
   ) : (
     <>
