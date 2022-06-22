@@ -62,7 +62,7 @@ const Perfil = ({ route, navigation }) => {
                 </Button>
               </>
             )
-          })}
+          }) }
         </>
         :
         <>
