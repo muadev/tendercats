@@ -20,7 +20,9 @@ const SubirFoto = () => {
     new Date().getTime() + '-' + uri.substring(uri.lastIndexOf('/') + 1, uri.length)
   }
 
-  // Esperando mergeo de issue #1243 de react-native-image-crop-picker para funcionalidad combinada de multiple y cropping.
+  // Esperando mergeo de issue #1243 de react-native-image-crop-picker para
+  // funcionalidad combinada de multiple y cropping.
+  // https://github.com/ivpusic/react-native-image-crop-picker/issues/1243
   const seleccionar = () => {
     ImagePicker.openPicker({
       multiple: true,
@@ -34,7 +36,7 @@ const SubirFoto = () => {
         })
         setImagenes(seleccionadas)
       })
-      // TO-DO Desglosar por error de usr canceló seleccion o no otorgó permisos de STORAGE.
+      // TODO, Desglosar por error de usr canceló seleccion o no otorgó permisos de STORAGE.
       .catch(error => {
         console.error(error)
       })
@@ -48,7 +50,7 @@ const SubirFoto = () => {
         let uri = image.path
         setImagenes([{ uri: uri, filename: filenameConTimestamp(uri) }])
       })
-      //TO-DO Desglosar por error de usr canceló seleccion o no otorgó permisos de STORAGE.
+      // TODO, Desglosar por error de usr canceló seleccion o no otorgó permisos de STORAGE.
       .catch(error => {
         console.error(error)
       })
