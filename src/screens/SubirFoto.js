@@ -15,9 +15,9 @@ const SubirFoto = () => {
   const { user } = useAuth()
   const db = useDatabase()
 
-  // Procesa la uri de la imagen para tomar nombre y extensión y le apenda un timestamp.
+  // Procesa la uri de la imagen para tomar nombre y extensión y le agrega un timestamp.
   const filenameConTimestamp = uri => {
-    new Date().getTime() + '-' + uri.substring(uri.lastIndexOf('/') + 1, uri.length)
+    return new Date().getTime() + '-' + uri.substring(uri.lastIndexOf('/') + 1, uri.length)
   }
 
   // Esperando mergeo de issue #1243 de react-native-image-crop-picker para
