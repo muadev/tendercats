@@ -24,7 +24,7 @@ const Perfil = ({ route, navigation }) => {
         setNombre(respuesta?.nombre)
         setEmail(respuesta?.email)
         setBio(respuesta?.bio)
-        setGatites(respuesta?.gatites)
+        setGatites(respuesta?.minigatites)
       })
       .catch(error => {
         setAlerta(error.message)
