@@ -8,8 +8,8 @@ const Perfil = ({ route, navigation }) => {
   const [nombre, setNombre] = useState('Buscando')
   const [email, setEmail] = useState('Buscando')
   const [bio, setBio] = useState('Buscando')
-  const [gatites, setGatites] = useState({})
-  //TODO, en algún momento este estado debe pasar a ser un toast unificado para la app.
+  const [gatites, setGatites] = useState()
+  // TODO, en algún momento este estado debe pasar a ser un toast unificado para la app.
   const [alerta, setAlerta] = useState('')
 
   const db = useDatabase()
@@ -48,19 +48,23 @@ const Perfil = ({ route, navigation }) => {
       <Text>{ email }</Text>
       <Text>{ bio }</Text>
       <Text>{ alerta }</Text>
-      { gatites ? Object.keys(gatites).map(gatiteId => {
-        return (
-          // TODO: Armar componente propio con portada de gatite y nombre.
-          <>
-            <Text>Mis gatis:</Text>
-            <Button
-              key={ gatiteId }
-              onPress={ () => navigation.navigate('GatiGaleria', { gatiteId: gatiteId }) }>
-              { gatites[gatiteId].nombre }
-            </Button>
-          </>
-        )
-      }) :
+      { gatites ?
+        <>
+          <Text>Mis gatis:</Text>
+          { Object.keys(gatites).map(gatiteId => {
+            return (
+              // TODO: Armar componente propio con portada de gatite y nombre.
+              <>
+                <Button
+                  key={ gatiteId }
+                  onPress={ () => navigation.navigate('GatiGaleria', { gatiteId: gatiteId }) }>
+                  { gatites[gatiteId].nombre }
+                </Button>
+              </>
+            )
+          })}
+        </>
+        :
         <>
           <Text>No has subido ninguna foto :(</Text>
           <Button onPress={ () => navigation.navigate('SubirFoto') }>
