@@ -48,17 +48,26 @@ const Perfil = ({ route, navigation }) => {
       <Text>{ email }</Text>
       <Text>{ bio }</Text>
       <Text>{ alerta }</Text>
-      <Text>Mis gatis:</Text>
-      { Object.keys(gatites).map(gatiteId => {
+      { gatites ? Object.keys(gatites).map(gatiteId => {
         return (
           // TODO: Armar componente propio con portada de gatite y nombre.
-          <Button
-            key={ gatiteId }
-            onPress={ () => navigation.navigate('GatiGaleria', { gatiteId: gatiteId }) }>
-            { gatites[gatiteId].nombre }
-          </Button>
+          <>
+            <Text>Mis gatis:</Text>
+            <Button
+              key={ gatiteId }
+              onPress={ () => navigation.navigate('GatiGaleria', { gatiteId: gatiteId }) }>
+              { gatites[gatiteId].nombre }
+            </Button>
+          </>
         )
-      }) }
+      }) :
+        <>
+          <Text>No has subido ninguna foto :(</Text>
+          <Button onPress={ () => navigation.navigate('SubirFoto') }>
+            Yen2 a subir
+          </Button>
+        </>
+      }
     </View>
   )
 }
