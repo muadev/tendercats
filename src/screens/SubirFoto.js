@@ -7,15 +7,14 @@ import { useAuth } from 'context/Auth'
 import { useDatabase } from 'context/Database'
 import TextInputStandard from 'componentes/TextInputStandard'
 import storage from '@react-native-firebase/storage'
-import { subirFotosDeGatites } from 'acciones'
+import { useAcciones } from 'context/Acciones'
 
 const SubirFoto = () => {
   // Array de {uri, filename}
   const [imagenes, setImagenes] = useState([])
   const [gato, setGato] = useState(null)
 
-  const { user } = useAuth()
-  const db = useDatabase()
+  const { subirFotosDeGatites } = useAcciones()
 
   // Procesa la uri de la imagen para tomar nombre y extensión y le agrega un timestamp.
   const filenameConTimestamp = uri => {
@@ -61,47 +60,6 @@ const SubirFoto = () => {
   const subirFoto = async () => {
     // TODO, Permitir varios nombres de gatites.
     subirFotosDeGatites(gato, imagenes)
-
-    // Todo esto va a la función.
-    imagenes.map(image => {
-      const reference = storage().ref(`/usuaries/${user.uid}/${image.filename}`)
-      reference
-        .putFile(image.uri)
-        .then(() => {
-          reference
-            .getDownloadURL()
-            .then(url => {
-              const gatite = db.ref('/gatites').push({
-                nombre: gato,
-                usuarie: user.uid,
-                follows: 0
-              })
-              // Crea gatite y le agrega la foto.
-              gatite
-                .child('fotos')
-                .push(url)
-                .then(foto => {
-                  db.ref(`/fotos/${foto.key}`).set({
-                    gatite: gatite.key
-                  })
-                })
-                .catch(error => {
-                  console.log(error)
-                })
-              // Lo vincula en el usuarie.
-              db.ref(`/usuaries/${user.uid}`).child('minigatites').child(gatite.key).set({
-                nombre: gato,
-                portada: url
-              })
-            })
-            .catch(error => {
-              console.log(error)
-            })
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    })
   }
 
   return (
