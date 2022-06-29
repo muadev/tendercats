@@ -15,9 +15,6 @@ export const AccionesProvider = ({ children }) => {
 
   // Sube múltiples imagenes, todas ellas corresponden a cada unx de lxs gatites
   const subirFotosDeGatites = (nombres, imagenes) => {
-    console.log(nombres)
-    console.log(imagenes)
-
     imagenes.map(image => {
       // TODO iterar sobre cada unx de lxs gatites
       const gato = nombres
@@ -68,7 +65,7 @@ export const AccionesProvider = ({ children }) => {
   }
 
   return (
-    <AccionesContext.Provider value={ { subirFotosDeGatites } }>{ children }</AccionesContext.Provider>
+    <AccionesContext.Provider value={{ subirFotosDeGatites }}>{children}</AccionesContext.Provider>
   )
 }
 
