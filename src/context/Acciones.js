@@ -65,7 +65,7 @@ export const AccionesProvider = ({ children }) => {
   }
 
   return (
-    <AccionesContext.Provider value={{ subirFotosDeGatites }}>{children}</AccionesContext.Provider>
+    <AccionesContext.Provider value={ { subirFotosDeGatites } }>{ children }</AccionesContext.Provider>
   )
 }
 
