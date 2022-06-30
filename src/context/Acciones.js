@@ -13,34 +13,28 @@ export const AccionesProvider = ({ children }) => {
   const { user } = useAuth()
   const db = useDatabase()
 
-  /* crea /fotos/id con:
-          |_ gatite
-          |_ url
-  */
+  /*
+    crea /fotos/id con: *gatite *url
+   */
   const crearFoto = (gatite, url) => {
     gatite
       .child('fotos')
       .push(url)
       .then(foto => {
         db.ref(`/fotos/${foto.key}`).set({
-          gatite: gatite.key
-          // TODO agregar campo url
+          gatite: gatite.key,
+          url: url
         })
       })
       .catch(error => {
         console.log(error)
       })
   }
-  /* si existe gatite para le usuarie
-       retorna gatite
-     si no existe, crea:
-     |_ gatites/id con:
-          |_ nombre
-          |_ usuarie
-          |_ follows
-     |_usuarie/id/minigatites/id
-          |_ nombre
-          |_ portada
+  /*
+    si existe gatite para le usuarie: retorna gatite
+    si no existe, crea:
+     |_ gatites/id con: *nombre, *usuarie, *follows
+     |_usuarie/id/minigatites/id con: *nombre, *portada
   */
   const cargarOCrearGatite = (gato, url) => {
     const gatite = db.ref('/gatites').push({
@@ -54,6 +48,7 @@ export const AccionesProvider = ({ children }) => {
       portada: url
     })
     // TODO Ante un gatite existente, no crearlo, sólo devolver su ID.
+    return gatite
   }
 
   const subirFotoAlStorage = (image, gato) => {
@@ -90,7 +85,7 @@ export const AccionesProvider = ({ children }) => {
   }
 
   return (
-    <AccionesContext.Provider value={ { subirFotosDeGatites } }>{ children }</AccionesContext.Provider>
+    <AccionesContext.Provider value={{ subirFotosDeGatites }}>{children}</AccionesContext.Provider>
   )
 }
 
