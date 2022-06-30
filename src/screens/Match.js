@@ -21,7 +21,7 @@ const Match = () => {
         siguiente: Object.values(snapshot?.val())[-1]
       })
     })
-  }, [])
+  }, [db])
 
   // El valor actual (x,y) del centro de la imagen.
   const coordenadas = useRef(new Animated.ValueXY()).current
