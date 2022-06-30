@@ -1,11 +1,16 @@
 // Incluye toda la información relacionada con una imagen durante el matcheo,
 // todo lo arrastrable.
 import React from 'react'
-import { Image, StyleSheet } from 'react-native'
+import { ImageBackground, StyleSheet } from 'react-native'
+import { Button, Text } from 'react-native-paper'
 
-const ImagenMatch = ({ source }) => {
+const ImagenMatch = ({ foto }) => {
+  const { url, gatite } = foto
+
   return (
-    <Image source={ { uri: source } } style={ styles.imagen } />
+    <ImageBackground source={ { uri: url } } style={ styles.imagen }>
+      <Text>{ gatite }</Text>
+    </ImageBackground>
   )
 }
 
