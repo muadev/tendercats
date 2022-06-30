@@ -88,7 +88,7 @@ const Match = () => {
 
         <View style={ styles.botonera }>
           <IconButton
-            icon={ likeade ? "heart" : "heart-outline"}
+            icon={ likeade ? 'heart' : 'heart-outline' }
             color={ Colors.red700 }
             onPress={ likear }/>
         </View>
