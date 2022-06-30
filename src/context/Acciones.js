@@ -13,54 +13,79 @@ export const AccionesProvider = ({ children }) => {
   const { user } = useAuth()
   const db = useDatabase()
 
+  /* crea /fotos/id con:
+          |_ gatite
+          |_ url
+  */
+  const crearFoto = (gatite, url) => {
+    gatite
+      .child('fotos')
+      .push(url)
+      .then(foto => {
+        db.ref(`/fotos/${foto.key}`).set({
+          gatite: gatite.key
+          // TODO agregar campo url
+        })
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+  /* si existe gatite para le usuarie
+       retorna gatite
+     si no existe, crea:
+     |_ gatites/id con:
+          |_ nombre
+          |_ usuarie
+          |_ follows
+     |_usuarie/id/minigatites/id
+          |_ nombre
+          |_ portada
+  */
+  const cargarOCrearGatite = (gato, url) => {
+    const gatite = db.ref('/gatites').push({
+      nombre: gato,
+      usuarie: user.uid,
+      follows: 0
+    })
+    // Lo vincula en le usuarie.
+    db.ref(`/usuaries/${user.uid}`).child('minigatites').child(gatite.key).set({
+      nombre: gato,
+      portada: url
+    })
+    // TODO Ante un gatite existente, no crearlo, sólo devolver su ID.
+  }
+
+  const subirFotoAlStorage = (image, gato) => {
+    const reference = storage().ref(`/usuaries/${user.uid}/${image.filename}`)
+    reference
+      .putFile(image.uri)
+      .then(() => {
+        reference
+          .getDownloadURL()
+          // TODO abstraer en cargarCrearGatite(nombre)
+          .then(url => {
+            // Crea gatite si no existe.
+            const gatite = cargarOCrearGatite(gato, url)
+
+            crearFoto(gatite, url)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
   // Sube múltiples imagenes, todas ellas corresponden a cada unx de lxs gatites
   const subirFotosDeGatites = (nombres, imagenes) => {
     imagenes.map(image => {
       // TODO iterar sobre cada unx de lxs gatites
       const gato = nombres
 
-      // TODO abstraer en subirFotoStorage()
-      const reference = storage().ref(`/usuaries/${user.uid}/${image.filename}`)
-      reference
-        .putFile(image.uri)
-        .then(() => {
-          reference
-            .getDownloadURL()
-            // TODO abstraer en cargarCrearGatite(nombre)
-            .then(url => {
-              // Crea gatite si no existe.
-              const gatite = db.ref('/gatites').push({
-                nombre: gato,
-                usuarie: user.uid,
-                follows: 0
-              })
-              // Lo vincula en le usuarie.
-              db.ref(`/usuaries/${user.uid}`).child('minigatites').child(gatite.key).set({
-                nombre: gato,
-                portada: url
-              })
-              // TODO Ante un gatite existente, no crearlo, sólo devolver su ID.
-              // TODO abstraer en crearFoto(gatite, url)
-              gatite
-                .child('fotos')
-                .push(url)
-                .then(foto => {
-                  db.ref(`/fotos/${foto.key}`).set({
-                    gatite: gatite.key
-                    // TODO agregar campo url
-                  })
-                })
-                .catch(error => {
-                  console.log(error)
-                })
-            })
-            .catch(error => {
-              console.log(error)
-            })
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      subirFotoAlStorage(image, gato)
     })
   }
 
