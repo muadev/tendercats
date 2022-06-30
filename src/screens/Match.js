@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { Animated, View, Image, ImageBackground, StyleSheet, PanResponder } from 'react-native'
+import { Animated, View, ImageBackground, StyleSheet, PanResponder } from 'react-native'
 import { IconButton, Colors } from 'react-native-paper'
 
 import ImagenMatch from 'componentes/ImagenMatch'
@@ -68,8 +68,6 @@ const Match = () => {
   })
 
   const likear = () => {
-    const { actual, siguiente } = fotos
-
     setFotos({ actual: fotos.siguiente, siguiente: fotos.actual })
     setLikeade(true)
   }

@@ -2,7 +2,7 @@
 // todo lo arrastrable.
 import React from 'react'
 import { ImageBackground, StyleSheet } from 'react-native'
-import { Button, Text } from 'react-native-paper'
+import { Text } from 'react-native-paper'
 
 const ImagenMatch = ({ foto }) => {
   const { url, gatite } = foto
