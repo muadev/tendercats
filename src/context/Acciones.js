@@ -80,12 +80,18 @@ export const AccionesProvider = ({ children }) => {
       // TODO iterar sobre cada unx de lxs gatites
       const gato = nombres
 
+      /*
+        TODO investigar el encadenamiento de Promises o el uso de funciones thenable
+        para encadenar el llamado de funciones y si alguna falla borrar las escrituras previas en la db. Ver:
+        https://masteringjs.io/tutorials/fundamentals/promise-chaining
+        https://masteringjs.io/tutorials/fundamentals/thenable
+      */
       subirFotoAlStorage(image, gato)
     })
   }
 
   return (
-    <AccionesContext.Provider value={ { subirFotosDeGatites } }>{ children }</AccionesContext.Provider>
+    <AccionesContext.Provider value={{ subirFotosDeGatites }}>{children}</AccionesContext.Provider>
   )
 }
 
