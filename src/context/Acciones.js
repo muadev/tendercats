@@ -37,17 +37,33 @@ export const AccionesProvider = ({ children }) => {
      |_usuarie/id/minigatites/id con: *nombre, *portada
   */
   const cargarOCrearGatite = (gato, url) => {
-    const gatite = db.ref('/gatites').push({
-      nombre: gato,
-      usuarie: user.uid,
-      follows: 0
+    let gatite 
+
+    return db.ref(`/usuaries/${user.uid}`).child('minigatites').orderByChild("nombre").equalTo(gato).once("value").then(snapshot => {
+      if (snapshot.exists()) {
+        console.log("Existe")
+        console.log(snapshot)
+        console.log(snapshot.val())
+        
+        gatite = snapshot.val()
+
+      } else {
+        console.log(" No Existe")
+        console.log(snapshot)
+
+        gatite = db.ref('/gatites').push({
+          nombre: gato,
+          usuarie: user.uid,
+          follows: 0
+        })
+        // Lo vincula en le usuarie.
+        db.ref(`/usuaries/${user.uid}`).child('minigatites').child(gatite.key).set({
+          nombre: gato,
+          portada: url
+        })
+        // TODO Ante un gatite existente, no crearlo, sólo devolver su ID.    
+      }
     })
-    // Lo vincula en le usuarie.
-    db.ref(`/usuaries/${user.uid}`).child('minigatites').child(gatite.key).set({
-      nombre: gato,
-      portada: url
-    })
-    // TODO Ante un gatite existente, no crearlo, sólo devolver su ID.
     return gatite
   }
 
