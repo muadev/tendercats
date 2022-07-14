@@ -30,13 +30,13 @@ export const AccionesProvider = ({ children }) => {
   */
 
   const cargarOCrearGatite = (gato, url) => {
-    return db.ref(`/usuaries/${user.uid}`).child('minigatites').orderByChild("nombre").equalTo(gato).once("value").then(snapshot => {
+    return db.ref(`/usuaries/${user.uid}`).child('minigatites').orderByChild('nombre').equalTo(gato).once('value').then(snapshot => {
       if (snapshot.exists()) {
         console.log(`Existe: ${snapshot.val()}`)
         // Devolvemos la key del unico gatite con este nombre.
         return Object.keys(snapshot.val())[0]
       } else {
-        console.log(" No Existe")
+        console.log(' No Existe')
 
         return db.ref('/gatites').push({
           nombre: gato,
