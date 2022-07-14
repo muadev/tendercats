@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { View } from 'react-native'
-import { Text, Button, TextInput } from 'react-native-paper'
+import { Text, Button } from 'react-native-paper'
 import auth from '@react-native-firebase/auth'
 import { useDatabase } from 'context/Database'
 
 import TextInputConError from 'componentes/TextInputConError'
+import TextInputStandard from 'componentes/TextInputStandard'
 
 const Registro = ({ navigation }) => {
   const [email, setEmail] = useState(null)
@@ -20,38 +21,34 @@ const Registro = ({ navigation }) => {
       <Text>Registro</Text>
 
       <TextInputConError
-        maxLength={ 64 }
-        placeholder="Ingresa tu email.."
-        keyboardType="email-address"
+        label='Mi email es'
         onChangeText={ setEmail }
         value={ email }
-        error= { error }
+        keyboardType="email-address"
+        error={ error }
         tiposDeError= { ['auth/invalid-email', 'auth/email-already-in-use'] }
       />
 
       <TextInputConError
-        maxLength={ 64 }
-        placeholder="Ingresa tu contraseña.."
-        secureTextEntry={ true }
+        label="Mi contraseña es"
         onChangeText={ setPassword }
         value={ password }
+        secureTextEntry={ true }
         error= { error }
         tiposDeError= { ['auth/weak-password'] }
       />
 
-      <TextInput
-        placeholder="Ingresa tu nombre.."
-        maxLength={ 64 }
+      <TextInputStandard
+        label="Mi nombre es"
         onChangeText={ setNombre }
         value={ nombre }
       />
 
-      <TextInput
-        placeholder="Ingresa tu bio.."
-        multiline
-        maxLength={ 100 }
+      <TextInputStandard
+        label="Mi bio es"
         onChangeText={ setBio }
         value={ bio }
+        multiline
       />
 
       <Button

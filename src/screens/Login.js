@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { View } from 'react-native'
-import { Button, Text, TextInput } from 'react-native-paper'
+import { Button, Text } from 'react-native-paper'
 import auth from '@react-native-firebase/auth'
+
+import TextInputStandard from 'componentes/TextInputStandard'
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState(null)
@@ -11,20 +13,18 @@ const Login = ({ navigation }) => {
     <View>
       <Text>Login</Text>
 
-      <TextInput
-        placeholder="Ingresa tu mail.."
-        keyboardType="email-address"
-        maxLength={ 64 }
+      <TextInputStandard
+        label="Mi email es"
         onChangeText={ setEmail }
         value={ email }
+        keyboardType="email-address"
       />
 
-      <TextInput
-        placeholder="Ingresa tu contraseña.."
-        secureTextEntry={ true }
-        maxLength={ 64 }
+      <TextInputStandard
+        label="Mi contraseña es"
         onChangeText={ setPassword }
         value={ password }
+        secureTextEntry={ true }
       />
 
       <Button
