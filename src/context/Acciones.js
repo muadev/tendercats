@@ -17,18 +17,10 @@ export const AccionesProvider = ({ children }) => {
     crea /fotos/id con: *gatite *url
    */
   const crearFoto = (gatite, url) => {
-    gatite
-      .child('fotos')
-      .push(url)
-      .then(foto => {
-        db.ref(`/fotos/${foto.key}`).set({
-          gatite: gatite.key,
-          url: url
-        })
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    db.ref('/fotos').push({
+      gatite: gatite,
+      url: url
+    })
   }
   /*
     si existe gatite para le usuarie: retorna gatite
@@ -36,35 +28,31 @@ export const AccionesProvider = ({ children }) => {
      |_ gatites/id con: *nombre, *usuarie, *follows
      |_usuarie/id/minigatites/id con: *nombre, *portada
   */
-  const cargarOCrearGatite = (gato, url) => {
-    let gatite 
 
+  const cargarOCrearGatite = (gato, url) => {
     return db.ref(`/usuaries/${user.uid}`).child('minigatites').orderByChild("nombre").equalTo(gato).once("value").then(snapshot => {
       if (snapshot.exists()) {
-        console.log("Existe")
-        console.log(snapshot)
-        console.log(snapshot.val())
-        
-        gatite = snapshot.val()
-
+        console.log(`Existe: ${snapshot.val()}`)
+        // Devolvemos la key del unico gatite con este nombre.
+        return Object.keys(snapshot.val())[0]
       } else {
         console.log(" No Existe")
-        console.log(snapshot)
 
-        gatite = db.ref('/gatites').push({
+        return db.ref('/gatites').push({
           nombre: gato,
           usuarie: user.uid,
           follows: 0
         })
-        // Lo vincula en le usuarie.
-        db.ref(`/usuaries/${user.uid}`).child('minigatites').child(gatite.key).set({
-          nombre: gato,
-          portada: url
+        .then(gatite => {
+          console.log(gatite.key)
+          // Lo vincula en le usuarie.
+          return db.ref(`/usuaries/${user.uid}`).child('minigatites').child(gatite.key).set({
+            nombre: gato,
+            portada: url
+          }).then(() => { return gatite.key })
         })
-        // TODO Ante un gatite existente, no crearlo, sólo devolver su ID.    
       }
     })
-    return gatite
   }
 
   const subirFotoAlStorage = (image, gato) => {
@@ -77,9 +65,11 @@ export const AccionesProvider = ({ children }) => {
           // TODO abstraer en cargarCrearGatite(nombre)
           .then(url => {
             // Crea gatite si no existe.
-            const gatite = cargarOCrearGatite(gato, url)
-
-            crearFoto(gatite, url)
+            cargarOCrearGatite(gato, url)
+            .then( (gatite) => {
+              console.log(`gatite devuelto: ${gatite}`)
+              crearFoto(gatite, url)
+            })
           })
           .catch(error => {
             console.log(error)
