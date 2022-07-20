@@ -54,13 +54,11 @@ const Perfil = ({ route, navigation }) => {
           { Object.keys(gatites).map(gatiteId => {
             return (
               // TODO: Armar componente propio con portada de gatite y nombre.
-              <>
-                <Button
-                  key={ gatiteId }
-                  onPress={ () => navigation.navigate('GatiGaleria', { gatiteId: gatiteId }) }>
-                  { gatites[gatiteId].nombre }
-                </Button>
-              </>
+              <Button
+                key={ gatiteId }
+                onPress={ () => navigation.navigate('GatiGaleria', { gatiteId: gatiteId }) }>
+                { gatites[gatiteId].nombre }
+              </Button>
             )
           }) }
         </>
