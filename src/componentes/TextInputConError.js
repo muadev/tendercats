@@ -8,7 +8,7 @@ const TextInputConError = ({ tiposDeError, error, ...props }) => {
   return (
     <>
       <TextInput
-        mode='outlined'
+        mode="outlined"
         { ...props }
       />
 

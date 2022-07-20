@@ -21,7 +21,7 @@ const Registro = ({ navigation }) => {
       <Text>Registro</Text>
 
       <TextInputConError
-        label='Mi email es'
+        label="Mi email es"
         onChangeText={ setEmail }
         value={ email }
         keyboardType="email-address"

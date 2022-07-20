@@ -5,7 +5,7 @@ import { TextInput } from 'react-native-paper'
 const TextInputStandard = (props) => {
   return (
     <TextInput
-      mode='outlined'
+      mode="outlined"
       { ...props }
     />
   )
