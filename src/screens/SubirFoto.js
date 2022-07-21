@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { View, Image, StyleSheet } from 'react-native'
-import { Button, TextInput } from 'react-native-paper'
+import { Button } from 'react-native-paper'
 import ImagePicker from 'react-native-image-crop-picker'
 
 import { useAuth } from 'context/Auth'
 import { useDatabase } from 'context/Database'
+import TextInputStandard from 'componentes/TextInputStandard'
 import storage from '@react-native-firebase/storage'
 
 const SubirFoto = () => {
@@ -105,9 +106,9 @@ const SubirFoto = () => {
       </Button>
       <Button onPress={ seleccionar }>Elegi una imagen existente</Button>
       <Button onPress={ tomarFoto }>Abrir cámara</Button>
-      <TextInput
-        placeholder="Ingresa un valor para Gato"
-        onChangeText={ nombre => setGato(nombre) }
+      <TextInputStandard
+        label="Les gatites de la foto son"
+        onChangeText={ setGato }
       />
 
       { imagenes.length === 0 ? (

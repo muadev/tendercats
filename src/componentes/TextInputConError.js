@@ -8,8 +8,10 @@ const TextInputConError = ({ tiposDeError, error, ...props }) => {
   return (
     <>
       <TextInput
+        mode="outlined"
         { ...props }
       />
+
       { tiposDeError.includes(error) &&
 
         <HelperText type="error" visible={ true }>
