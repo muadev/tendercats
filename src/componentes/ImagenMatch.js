@@ -9,6 +9,7 @@ const ImagenMatch = ({ foto }) => {
 
   return (
     <ImageBackground source={ { uri: url } } style={ styles.imagen }>
+      { /* TODO, gatite es el id, que sirve para buscar toda la información del gatite y mostrarla */ }
       <Text>{ gatite }</Text>
     </ImageBackground>
   )

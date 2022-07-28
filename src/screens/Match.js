@@ -6,7 +6,7 @@ import ImagenMatch from 'componentes/ImagenMatch'
 import { useDatabase } from 'context/Database'
 
 const Match = () => {
-  const [fotos, setFotos] = useState({ actual: 'a', siguiente: 'b' })
+  const [fotos, setFotos] = useState({ actual: null, siguiente: null })
   const [likeade, setLikeade] = useState(false)
 
   const db = useDatabase()
@@ -16,9 +16,16 @@ const Match = () => {
     // https://rnfirebase.io/reference/database/query
     db.ref('/fotos').limitToFirst(2).once('value', snapshot => {
       // TODO, Contemplar los casos iniciales cuando no hay imágenes o sólo hay 1.
+
+      // Rearma el objeto de fotos para tener acceso al id de manera simple.
+      // TODO, Extraer?
+      const lista = Object.entries(snapshot?.val()).map(
+        foto => ({ id: foto[0], ...foto[1] })
+      )
+
       setFotos({
-        actual: Object.values(snapshot?.val())[0],
-        siguiente: Object.values(snapshot?.val())[-1]
+        actual: lista[0],
+        siguiente: lista[1]
       })
     })
   }, [db])
@@ -36,6 +43,8 @@ const Match = () => {
         listener: (event, gestureState) => {
           const x = coordenadas.x._value
 
+          // FIXME, El valor de umbral (-150, 150) está un poco hardcodeado y
+          // deberíamos normalizarlo de alguna manera.
           if (x > 150) {
             // Preview de la acción a la derecha.
             // Mostrar feedback de lo que va a pasar. Se ve la siguiente de fondo.
@@ -75,16 +84,18 @@ const Match = () => {
   return (
     <View style={ styles.contenedor }>
       <View style={ styles.superior }>
-        <ImageBackground source={ { uri: fotos.siguiente?.url } }>
-          <Animated.View
-            style={ {
-              transform: [{ translateX: coordenadas.x }, { translateY: coordenadas.y }]
-            } }
-            { ...panResponder.panHandlers }
-          >
-            <ImagenMatch foto={ fotos.actual } />
-          </Animated.View>
-        </ImageBackground>
+        { fotos.actual &&
+          <ImageBackground source={ { uri: fotos.siguiente?.url } }>
+            <Animated.View
+              style={ {
+                transform: [{ translateX: coordenadas.x }, { translateY: coordenadas.y }]
+              } }
+              { ...panResponder.panHandlers }
+            >
+              <ImagenMatch foto={ fotos.actual } />
+            </Animated.View>
+          </ImageBackground>
+        }
 
         <View style={ styles.botonera }>
           <IconButton
