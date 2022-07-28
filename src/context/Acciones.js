@@ -22,7 +22,7 @@ export const AccionesProvider = ({ children }) => {
       url: url
     })
   }
-  
+
   /*
     si existe gatite para le usuarie: retorna gatite
     si no existe, crea:
