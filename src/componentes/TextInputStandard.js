@@ -6,6 +6,7 @@ const TextInputStandard = (props) => {
   return (
     <TextInput
       mode="outlined"
+      autoCapitalize="none"
       { ...props }
     />
   )
