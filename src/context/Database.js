@@ -9,17 +9,10 @@ export const DatabaseContext = createContext()
 
 // Exportamos el proveedor de contexto.
 export const DatabaseProvider = ({ children }) => {
-  return (
-    <DatabaseContext.Provider value={ database() }>
-      { children }
-    </DatabaseContext.Provider>
-  )
+  return <DatabaseContext.Provider value={ database() }>{ children }</DatabaseContext.Provider>
 }
 
 // Exportamos funciones de utilidad para abstraer un poco la estructura de la
 // base de datos.
 
 export const useDatabase = () => useContext(DatabaseContext)
-// TODO, esto en el futuro quedará obsoleto.
-export const useGatites = () => useContext(DatabaseContext).ref('gatites')
-export const useGatite = id => useContext(DatabaseContext).ref(`gatites/${id}`)
