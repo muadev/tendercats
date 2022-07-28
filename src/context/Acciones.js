@@ -16,9 +16,9 @@ export const AccionesProvider = ({ children }) => {
   /*
     crea /fotos/id con: *gatite *url
    */
-  const crearFoto = (gatite, url) => {
+  const crearFoto = (gatiteId, url) => {
     db.ref('/fotos').push({
-      gatite: gatite,
+      gatite: gatiteId,
       url: url
     })
   }
@@ -29,21 +29,22 @@ export const AccionesProvider = ({ children }) => {
      |_usuarie/id/minigatites/id con: *nombre, *portada
   */
 
-  const cargarOCrearGatite = (gato, url) => {
-    return db.ref(`/usuaries/${user.uid}`).child('minigatites').orderByChild('nombre').equalTo(gato).once('value').then(snapshot => {
+  // Recibe nombre de gatite y url, y devuelve el Id del gatite existente o del recien creado.
+  const cargarOCrearGatite = (nombreDeGatite, url) => {
+    return db.ref(`/usuaries/${user.uid}`).child('minigatites').orderByChild('nombre').equalTo(nombreDeGatite).once('value').then(snapshot => {
       if (snapshot.exists()) {
-        // Devolvemos la key del unico gatite con este nombre.
+        // Devolvemos el Id del unico gatite con este nombre.
         return Object.keys(snapshot.val())[0]
       } else {
         return db.ref('/gatites').push({
-          nombre: gato,
+          nombre: nombreDeGatite,
           usuarie: user.uid,
           follows: 0
         })
         .then(gatite => {
           // Lo vincula en le usuarie.
           return db.ref(`/usuaries/${user.uid}`).child('minigatites').child(gatite.key).set({
-            nombre: gato,
+            nombre: nombreDeGatite,
             portada: url
           }).then(() => { return gatite.key })
         })
@@ -51,22 +52,21 @@ export const AccionesProvider = ({ children }) => {
     })
   }
 
-  const subirFotoAlStorage = (image, gato) => {
-    const reference = storage().ref(`/usuaries/${user.uid}/${image.filename}`)
+  const subirFotoAlStorage = (archivoDeImagen, nombreDeGatite) => {
+    const reference = storage().ref(`/usuaries/${user.uid}/${archivoDeImagen.filename}`)
     reference
-      .putFile(image.uri)
+      .putFile(archivoDeImagen.uri)
       .then(() => {
         reference
           .getDownloadURL()
-          // TODO abstraer en cargarCrearGatite(nombre)
           .then(url => {
             // Crea gatite si no existe.
-            cargarOCrearGatite(gato, url)
-            .then( (gatite) => {
-              console.log(`gatite devuelto: ${gatite}`)
-              crearFoto(gatite, url)
+            cargarOCrearGatite(nombreDeGatite, url)
+            .then( (gatiteId) => {
+              crearFoto(gatiteId, url)
             })
           })
+          // TODO ver si este catch no es redundante por el encadenamiento de theneables.
           .catch(error => {
             console.log(error)
           })
@@ -77,10 +77,10 @@ export const AccionesProvider = ({ children }) => {
   }
 
   // Sube múltiples imagenes, todas ellas corresponden a cada unx de lxs gatites
-  const subirFotosDeGatites = (nombres, imagenes) => {
-    imagenes.map(image => {
+  const subirFotosDeGatites = (nombresDeGatites, archivosDeImagenes) => {
+    archivosDeImagenes.map(archivoDeImagen => {
       // TODO iterar sobre cada unx de lxs gatites
-      const gato = nombres
+      const gato = nombresDeGatites
 
       /*
         TODO investigar el encadenamiento de Promises o el uso de funciones thenable
@@ -88,7 +88,7 @@ export const AccionesProvider = ({ children }) => {
         https://masteringjs.io/tutorials/fundamentals/promise-chaining
         https://masteringjs.io/tutorials/fundamentals/thenable
       */
-      subirFotoAlStorage(image, gato)
+      subirFotoAlStorage(archivoDeImagen, gato)
     })
   }
 

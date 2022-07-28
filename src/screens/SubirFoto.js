@@ -3,20 +3,16 @@ import { View, Image, StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
 import ImagePicker from 'react-native-image-crop-picker'
 
-import { useAuth } from 'context/Auth'
-import { useDatabase } from 'context/Database'
 import TextInputStandard from 'componentes/TextInputStandard'
-import storage from '@react-native-firebase/storage'
 import { useAcciones } from 'context/Acciones'
 
 const SubirFoto = () => {
-  // Array de {uri, filename}
   const [imagenes, setImagenes] = useState([])
   const [gato, setGato] = useState(null)
 
   const { subirFotosDeGatites } = useAcciones()
 
-  // Procesa la uri de la imagen para tomar nombre y extensión y le agrega un timestamp.
+  // Arma el nombre de la imagen que va al storage. Con la forma: timestamp + nombre del archivo + extension.
   const filenameConTimestamp = uri => {
     return new Date().getTime() + '-' + uri.substring(uri.lastIndexOf('/') + 1, uri.length)
   }
@@ -24,7 +20,7 @@ const SubirFoto = () => {
   // Esperando mergeo de issue #1243 de react-native-image-crop-picker para
   // funcionalidad combinada de multiple y cropping.
   // https://github.com/ivpusic/react-native-image-crop-picker/issues/1243
-  const seleccionar = () => {
+  const seleccionarDesdeGaleria = () => {
     ImagePicker.openPicker({
       multiple: true,
       cropping: true
@@ -43,7 +39,7 @@ const SubirFoto = () => {
       })
   }
 
-  const tomarFoto = () => {
+  const seleccionarDesdeCamara = () => {
     ImagePicker.openCamera({
       cropping: true
     })
@@ -51,31 +47,29 @@ const SubirFoto = () => {
         let uri = image.path
         setImagenes([{ uri: uri, filename: filenameConTimestamp(uri) }])
       })
-      // TODO, Desglosar por error de usr canceló seleccion o no otorgó permisos de STORAGE.
+      // TODO, Desglosar por error de usr canceló seleccion o no otorgó permisos de Cámara.
       .catch(error => {
         console.error(error)
       })
   }
 
-  const subirFoto = async () => {
+  const guardar = async () => {
     // TODO, Permitir varios nombres de gatites.
     subirFotosDeGatites(gato, imagenes)
   }
 
   return (
     <View>
-      <Button disabled={ gato ? false : true } onPress={ subirFoto }>
-        { `Guardar ${imagenes.length}` }
-      </Button>
-      <Button onPress={ seleccionar }>Elegi una imagen existente</Button>
-      <Button onPress={ tomarFoto }>Abrir cámara</Button>
+      <Button disabled={ gato ? false : true } onPress={ guardar }>Guardar</Button>
+      <Button onPress={ seleccionarDesdeGaleria }>Seleccionar desde galería</Button>
+      <Button onPress={ seleccionarDesdeCamara }>Tomar Foto</Button>
       <TextInputStandard label="Les gatites de la foto son" onChangeText={ setGato } />
 
       { imagenes.length === 0 ? (
-        /* Imagen genérica de assets si le usuarie no eligió/tomo imagen aún. */
+        /* Muestra imagen genérica de assets si le usuarie no eligió/tomo imagen aún. */
         <Image source={ require('../assets/images/no-image.png') } style={ styles.images } />
       ) : (
-        /* Imagen preexistente de Galería o tomada con la Cámara. */
+        /* Previsualiza imagen/es preexistente/s de Galería o tomada con la Cámara. */
         imagenes.map((imagen, index) => {
           return <Image key={ index } source={ { uri: imagen.uri } } style={ styles.images } />
         })
