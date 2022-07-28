@@ -1,79 +1,109 @@
-import React, { useRef, useState } from 'react'
-import { Animated, View, StyleSheet, PanResponder, Text } from 'react-native'
+import React, { useRef, useState, useEffect } from 'react'
+import { Animated, View, ImageBackground, StyleSheet, PanResponder } from 'react-native'
+import { IconButton, Colors } from 'react-native-paper'
+
+import ImagenMatch from 'componentes/ImagenMatch'
+import { useDatabase } from 'context/Database'
 
 const Match = () => {
-  // TODO, Fondo debería ser la imagen inicial.
-  const [fondo, setFondo] = useState('steelblue')
-  const [moveX, setMoveX] = useState(0)
-  const [moveY, setMoveY] = useState(0)
-  const [releaseX, setReleaseX] = useState(0)
-  const [releaseY, setReleaseY] = useState(0)
+  const [fotos, setFotos] = useState({ actual: null, siguiente: null })
+  const [likeade, setLikeade] = useState(false)
 
-  const pan = useRef(new Animated.ValueXY()).current
-  const panResponder = useRef(
-    PanResponder.create({
-      onMoveShouldSetPanResponder: () => true,
-      // Ignoramos el primer parámetro que recibe Animated.event.
-      onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }],
-        {
-          useNativeDriver: false,
-          // Esto tiene que matchear con los argumentos del evento previo.
-          listener: (event, gestureState) => {
-            const x = pan.x._value
+  const db = useDatabase()
 
-            setMoveX(x)
-            setMoveY(pan.y._value)
+  // Pedir imágenes del backend al azar, mostrar una inicial.
+  useEffect(() => {
+    // https://rnfirebase.io/reference/database/query
+    db.ref('/fotos').limitToFirst(2).once('value', snapshot => {
+      // TODO, Contemplar los casos iniciales cuando no hay imágenes o sólo hay 1.
 
-            if (x > 150) {
-              // Preview de la acción a la derecha.
-              setFondo('yellow')
-            } else if (x < -150) {
-              // Preview de la acción a la izquierda.
-              setFondo('purple')
-            } else {
-              // No debería hacer nada.
-              setFondo('white')
-            }
+      // Rearma el objeto de fotos para tener acceso al id de manera simple.
+      // TODO, Extraer?
+      const lista = Object.entries(snapshot?.val()).map(
+        foto => ({ id: foto[0], ...foto[1] })
+      )
+
+      setFotos({
+        actual: lista[0],
+        siguiente: lista[1]
+      })
+    })
+  }, [db])
+
+  // El valor actual (x,y) del centro de la imagen.
+  const coordenadas = useRef(new Animated.ValueXY()).current
+
+  const panResponder = PanResponder.create({
+    onMoveShouldSetPanResponder: () => true,
+    // Ignoramos el primer parámetro que recibe Animated.event.
+    onPanResponderMove: Animated.event([null, { dx: coordenadas.x, dy: coordenadas.y }],
+      {
+        useNativeDriver: false,
+        // Esto tiene que matchear con los argumentos del evento previo.
+        listener: (event, gestureState) => {
+          const x = coordenadas.x._value
+
+          // FIXME, El valor de umbral (-150, 150) está un poco hardcodeado y
+          // deberíamos normalizarlo de alguna manera.
+          if (x > 150) {
+            // Preview de la acción a la derecha.
+            // Mostrar feedback de lo que va a pasar. Se ve la siguiente de fondo.
+          } else if (x < -150) {
+            // Preview de la acción a la izquierda.
+            // Mostrar feedback de lo que va a pasar. Se ve la siguiente de fondo.
+          } else {
+            // No debería hacer nada.
           }
         }
-      ),
-      onPanResponderRelease: () => {
-        const x = pan.x._value
-
-        setReleaseX(x)
-        setReleaseY(pan.y._value)
-
-        if (x > 150) {
-          // Realizar la acción de la derecha.
-          setFondo('red')
-        } else if (x < -150) {
-          // Realizar la acción de la izquierda.
-          setFondo('green')
-        } else {
-          // Abortar la acción.
-          setFondo('steelblue')
-        }
-
-        Animated.spring(pan, { toValue: { x: 0, y: 0 }, useNativeDriver: true }).start()
       }
-    })
-  ).current
+    ),
+    onPanResponderRelease: () => {
+      const x = coordenadas.x._value
+
+      if (x > 150) {
+        // Realizar la acción de la derecha.
+        // Fade out de la imagen actual, la siguiente se convierte en la actual.
+        likear()
+      } else if (x < -150) {
+        // Realizar la acción de la izquierda.
+        // Fade out de la imagen actual, la siguiente se convierte en la actual.
+      } else {
+        // Abortar la acción.
+        // Spring al centro con la imagen actual.
+      }
+
+      Animated.spring(coordenadas, { toValue: { x: 0, y: 0 }, useNativeDriver: true }).start()
+    }
+  })
+
+  const likear = () => {
+    setFotos({ actual: fotos.siguiente, siguiente: fotos.actual })
+    setLikeade(true)
+  }
 
   return (
     <View style={ styles.contenedor }>
-      <Animated.View
-        style={ {
-          transform: [{ translateX: pan.x }, { translateY: pan.y }]
-        } }
-        { ...panResponder.panHandlers }
-      >
-        <View style={ [styles.superior, { backgroundColor: fondo }] }>
-          <Text>move x: { moveX }</Text>
-          <Text>move y: { moveY }</Text>
-          <Text>release x: { releaseX }</Text>
-          <Text>release y: { releaseY }</Text>
+      <View style={ styles.superior }>
+        { fotos.actual &&
+          <ImageBackground source={ { uri: fotos.siguiente?.url } }>
+            <Animated.View
+              style={ {
+                transform: [{ translateX: coordenadas.x }, { translateY: coordenadas.y }]
+              } }
+              { ...panResponder.panHandlers }
+            >
+              <ImagenMatch foto={ fotos.actual } />
+            </Animated.View>
+          </ImageBackground>
+        }
+
+        <View style={ styles.botonera }>
+          <IconButton
+            icon={ likeade ? 'heart' : 'heart-outline' }
+            color={ Colors.red700 }
+            onPress={ likear }/>
         </View>
-      </Animated.View>
+      </View>
     </View>
   )
 }
@@ -84,10 +114,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   superior: {
-    flex: 1,
-    minWidth: '101%',
-    borderRadius: 5,
-    margin: -1
+    minWidth: '100%'
+  },
+  botonera: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    zIndex: 1
   }
 })
 
