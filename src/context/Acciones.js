@@ -22,13 +22,13 @@ export const AccionesProvider = ({ children }) => {
       url: url
     })
   }
+  
   /*
     si existe gatite para le usuarie: retorna gatite
     si no existe, crea:
-     |_ gatites/id con: *nombre, *usuarie, *follows
+     |_gatites/id con: *nombre, *usuarie, *follows
      |_usuarie/id/minigatites/id con: *nombre, *portada
   */
-
   // Recibe nombre de gatite y url, y devuelve el Id del gatite existente o del recien creado.
   const cargarOCrearGatite = (nombreDeGatite, url) => {
     return db.ref(`/usuaries/${user.uid}`).child('minigatites').orderByChild('nombre').equalTo(nombreDeGatite).once('value').then(snapshot => {
